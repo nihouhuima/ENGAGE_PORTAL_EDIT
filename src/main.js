@@ -12,6 +12,7 @@ Vue.use(VueRouter)
 Vue.prototype.GLOBAL = global_;
 axios.defaults.baseURL=global_.BASE_URL;
 Vue.prototype.$ajax = axios;
+Vue.prototype.$bus = new Vue();
 
 new Vue({
   el:'#app',

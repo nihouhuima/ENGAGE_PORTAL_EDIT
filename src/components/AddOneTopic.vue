@@ -1,5 +1,6 @@
 <template>
-    <div> 
+    <div class="edit_change"> 
+        <router-link :to="{name: 'EditTopic'}"><button>Return</button></router-link>
         <p> add one topic</p>
     </div>
 </template>

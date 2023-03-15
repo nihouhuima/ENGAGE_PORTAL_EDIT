@@ -26,11 +26,15 @@ header{
     height: 100%;
 }
 .edit_top{
-    height: 10%;
+    height: 6%;
     text-align: center;
     vertical-align: middle;
     background-color: #235787;
     color: white;
+
+}
+#edit_title{
+    font-size: 1.3em;
 }
 p{
     margin: 0%;
@@ -39,7 +43,7 @@ p{
     display: flex;
     display: -webkit-flex;
     flex-direction:row;
-    height: 90%;
+    height: 94%;
 } 
 h2{
     margin: 0%;
@@ -47,6 +51,12 @@ h2{
 .edit-text{
     padding-left: 2em;
     padding-bottom: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+}
+.edit_topicname{
+    width: 4em;
 }
 .edit-button-add{
     background-color: #235787;
@@ -82,9 +92,21 @@ h2{
 }
 .edit_img{
     max-height: 1.5em;
-    margin-left: 1.5em;
+    margin-right: 1em;
+    cursor: pointer;
 }
 .edit_title{
     margin: 0%;
     font-size: 1em;
+    margin-right: 1.5em;
+}
+.edit_change{
+    margin:1em;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a :hover{
+    color: #235787;
 }

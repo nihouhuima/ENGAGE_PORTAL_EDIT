@@ -2,7 +2,7 @@
     <div class="body_container"> 
     <div class="edit-body"> 
         <div class="edit_top"> 
-            <p> You can edit the information here</p>
+            <p id="edit_title"> You can edit the information here</p>
         </div>
         <div class="edit_content"> 
             <div class="edit_menu">
