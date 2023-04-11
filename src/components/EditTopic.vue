@@ -8,12 +8,13 @@
             <router-link :to="{name: 'AddOneTopic'}"><img src="../assets/plus.png" alt="add" class="edit_img"></router-link>
         </div>
 
-            <div v-for="element in topic" :key="element.topic">
-                <div v-if="belongEngage(element.topic)" class="edit-text">
+            <div v-for="element in topicEngage" :key="element.topic">
+                
+                <!-- <div v-if="belongEngage(element.topic)" class="edit-text"> -->
                     <img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata(element)">
                     <img src="../assets/gomme.png" alt="delete" class="edit_img">
                     <span>{{element.topic}}</span><span> {{ element.topicFullName }}</span>
-                </div>
+                <!-- </div> -->
             </div>
 
 
@@ -25,12 +26,13 @@
         </div>
         
    
-                        <div v-for="element in topic" :key="element.topic">
-                            <div v-if="belongSDG(element.topic)" class="edit-text">
-                                <img src="../assets/crayon.png" alt="add" class="edit_img" @click="choosedata(element)">
+                        <div v-for="element1 in this.topicSDG" :key="element1.topic">
+                            
+                            <!-- <div v-if="belongSDG(element1.topic)" class="edit-text"> -->
+                                <img src="../assets/crayon.png" alt="add" class="edit_img" @click="choosedata(element1)">
                                 <img src="../assets/gomme.png" alt="delete" class="edit_img">
-                                <span class="edit_topicname">{{element.topic}}</span><span> {{ element.topicFullName }}</span>
-                            </div>
+                                <span class="edit_topicname">{{element1.topic}}</span><span> {{ element1.topicFullName }}</span>
+                            <!-- </div> -->
                         </div>
 
             
@@ -42,7 +44,8 @@ import axios from 'axios';
 export default {
     data(){
         return{
-            topicinfo:{},
+            topicSDG:[],
+            topicEngage:[],
             topic:[
             // {
             //     topicname: "SDG-1",
@@ -120,8 +123,21 @@ export default {
             const path = `${this.GLOBAL.BASE_URL}keywords`;
             axios.get(path)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.topic = res.data;
+                // console.log(this.topic);
+                for(var i=0;i<this.topic.length;i++){
+                    // console.log(this.topic[i]['type']);
+                    if (this.topic[i]['type']==true){
+                        this.topicSDG.push(this.topic[i]);
+                    }
+                    else{
+                        this.topicEngage.push(this.topic[i]);
+                    }
+
+                }
+                // console.log(this.topicSDG);
+                // console.log(this.topicEngage);
             })
             .catch((error) => {
             console.error(error);
@@ -150,6 +166,8 @@ export default {
     },
     created(){
         this.getList();
+        
+        
     }
     
 }
