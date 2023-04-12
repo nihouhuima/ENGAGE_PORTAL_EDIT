@@ -92,8 +92,10 @@ h2{
 }
 .edit_img{
     max-height: 1.5em;
-    margin-right: 1em;
     cursor: pointer;
+}
+.edit_img_center{
+    text-align: center;
 }
 .edit_title{
     margin: 0%;
@@ -109,4 +111,39 @@ a{
 }
 a :hover{
     color: #235787;
+}
+.edit_table tr, td{
+    border: white solid 1px;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+.edit_table{
+    border-collapse: collapse;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
+.edit_tr:hover{
+    background-color: aliceblue;
+}
+.edit_short_name{
+    white-space: nowrap;
+}
+.edit_add_type{
+    border-left: gainsboro 0.3em solid;
+    padding-left: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+}
+.edit_delete_type{
+    cursor: pointer;
+    max-height: 1.5em;
+    float: right;
+}
+#edit_add_set_keywords{
+    color:dimgrey
+}
+#edit_add_set_keywords:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }

@@ -3,38 +3,47 @@
         
         <div class="edit_content_container">
             <div class="edit_menu_text"> 
-                <p class="edit_title">Topic Engage</p>
+                <p class="edit_title">Engage Topic </p>
             </div>
-            <router-link :to="{name: 'AddOneTopic'}"><img src="../assets/plus.png" alt="add" class="edit_img"></router-link>
+            <a @click="routerto()"><img src="../assets/plus.png" alt="add" class="edit_img"></a>
         </div>
+        <table class="edit_table">
+            <tr>
+                <td>Modify</td><td>Delete</td><td class="edit_short_name">Short Name</td><td>Full Name</td>
+            </tr>
 
-            <div v-for="element in topicEngage" :key="element.topic">
                 
-                <!-- <div v-if="belongEngage(element.topic)" class="edit-text"> -->
-                    <img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata(element)">
-                    <img src="../assets/gomme.png" alt="delete" class="edit_img">
-                    <span>{{element.topic}}</span><span> {{ element.topicFullName }}</span>
-                <!-- </div> -->
-            </div>
+                    <tr class="edit_tr" v-for="element in topicEngage" :key="element.topic">
+                        <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata(element)"></td>
+                        <td class="edit_img_center"><img src="../assets/gomme.png" alt="delete" class="edit_img"> </td>
+                        <td><span>{{element.topic}}</span></td>
+                        <td><span> {{ element.topicFullName }}</span> </td>
+                    </tr>
+                
 
+        </table>
 
         <div class="edit_content_container">
             <div class="edit_menu_text"> 
-                <p class="edit_title">Topic SDG</p>
+                <p class="edit_title">SDG Topic </p>
             </div>
-            <router-link :to="{name: 'AddOneTopic'}"><img src="../assets/plus.png" alt="add" class="edit_img"></router-link>
         </div>
         
-   
-                        <div v-for="element1 in this.topicSDG" :key="element1.topic">
-                            
-                            <!-- <div v-if="belongSDG(element1.topic)" class="edit-text"> -->
-                                <img src="../assets/crayon.png" alt="add" class="edit_img" @click="choosedata(element1)">
-                                <img src="../assets/gomme.png" alt="delete" class="edit_img">
-                                <span class="edit_topicname">{{element1.topic}}</span><span> {{ element1.topicFullName }}</span>
-                            <!-- </div> -->
-                        </div>
+        <table class="edit_table">
+            <tr >
+                <td>Modify</td><td>Delete</td><td class="edit_short_name">Short Name</td><td>Full Name</td>
+            </tr>
+                        
 
+            <tr class="edit_tr" v-for="element1 in this.topicSDG" :key="element1.topic">
+                <td class="edit_img_center"><img src="../assets/crayon.png" alt="add" class="edit_img" @click="choosedata(element1)"> </td>
+                <td class="edit_img_center"><img src="../assets/gomme.png" alt="delete" class="edit_img"> </td>
+                <td><span class="edit_topicname">{{element1.topic}}</span></td>
+                <td><span> {{ element1.topicFullName }}</span> </td>
+            </tr>
+
+ 
+        </table>
             
     </div>
 </template>
@@ -46,76 +55,7 @@ export default {
         return{
             topicSDG:[],
             topicEngage:[],
-            topic:[
-            // {
-            //     topicname: "SDG-1",
-            //     text: "NO POVERTY"
-            // },
-            // {
-            //     topicname: "SDG-2",
-            //     text: "ZERO HUNGER"
-            // },
-            // {
-            //     topicname: "SDG-3",
-            //     text: "GOOD HEALTH AND WELL-BEING"
-            // },
-            // {
-            //     topicname: "SDG-4",
-            //     text: "QUALITY EDUCATION"
-            // },
-            // {
-            //     topicname: "SDG-5",
-            //     text: "GENDER EQUALITY"
-            // },
-            // {
-            //     topicname: "SDG-6",
-            //     text: "CLEAN WATER AND SANITATION"
-            // },
-            // {
-            //     topicname: "SDG-7",
-            //     text: "AFFORDABLE AND CLEAN ENERGY"
-            // },
-            // {
-            //     topicname: "SDG-8",
-            //     text: "DECENT WORK AND ECONOMIC GROWTH"
-            // },
-            // {
-            //     topicname: "SDG-9",
-            //     text: "INDUSTRY, INNOVATION AND INFRASTRUCTURE"
-            // },
-            // {
-            //     topicname: "SDG-10",
-            //     text: "REDUCED INEQUALITIES"
-            // },
-            // {
-            //     topicname: "SDG-11",
-            //     text: "SUSTAINABLE CITIES AND COMMUNITIES"
-            // },
-            // {
-            //     topicname: "SDG-12",
-            //     text: "RESPONSIBLE CONSUMPTION AND PRODUCTION"
-            // },
-            // {
-            //     topicname: "SDG-13",
-            //     text: "CLIMATE ACTION"
-            // },
-            // {
-            //     topicname: "SDG-14",
-            //     text: "LIFE BELOW WATER"
-            // },
-            // {
-            //     topicname: "SDG-15",
-            //     text: "LIFE ON LAND"
-            // },
-            // {
-            //     topicname: "SDG-16",
-            //     text: "PEACE, JUSTICE AND STRONG INSTITUTIONS"
-            // },
-            // {
-            //     topicname: "digital",
-            //     text: ""
-            // }
-        ]
+            topic:[]
         }
     },
     methods: {
@@ -162,12 +102,17 @@ export default {
                 name:"ChangeOneTopic",
                 params: element
             })
+        },
+        routerto(){
+            this.$router.push({
+                name:"AddOneTopic",
+                query:{
+                }
+            })
         }
     },
     created(){
         this.getList();
-        
-        
     }
     
 }
