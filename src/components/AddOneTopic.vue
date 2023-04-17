@@ -8,10 +8,10 @@
             </div>
             <table id="edit_add_topic_table"> 
                 <tr> 
-                    <td><p>Short Name :</p></td><td><input v-model="shortName" type="text"></td>
+                    <td><p>Short Name :</p></td><td><input v-model="wordlist.shortName" type="text"></td>
                 </tr>
                 <tr> 
-                    <td><p>Full Name :</p></td><td><input v-model="FullName" type="text"></td>
+                    <td><p>Full Name :</p></td><td><input v-model="wordlist.FullName" type="text"></td>
                 </tr>
             </table>
         </div>
@@ -22,8 +22,11 @@
                 <p class="edit_title"><b>Keywords</b> </p>
             </div>
             <table>
-                <tr><td><p>Language :</p></td><td><select v-model="lang" >
-                    <option v-for="lan in list_lang" :key="lan">{{lan}}</option></select></td></tr>
+                <tr><td><p>Language :</p></td><td>
+                    <!-- <select v-model="lang" >
+                    <option v-for="lan in list_lang" :key="lan">{{lan}}</option></select> -->
+                    English
+                </td></tr>
             </table>
             
         
@@ -36,21 +39,21 @@
                         </tr>
                         </table><br>
                         <p id="edit_espace"> Words<span>  (*please separate the words by ",")</span></p>
-                        <textarea v-model="single_words" rows="4" cols="100"></textarea>
+                        <textarea v-model="wordlist.single_words" rows="4" cols="100"></textarea>
                     </div>  
                     <div>
                         <table><tr><td><p>Type : At least</p></td>
                         </tr>
                         </table><br>
                         <p id="edit_espace"> Words<span>  (*please separate the words by ",")</span></p>
-                        <textarea v-model="at_least" rows="4" cols="100"></textarea>
+                        <textarea v-model="wordlist.at_least" rows="4" cols="100"></textarea>
                     </div>  
                     <div>
                         <table><tr><td><p>Type : Combined with</p></td>
                         </tr>
                         </table><br>
                         <p id="edit_espace"> Words<span>  (*please separate the words by ",")</span></p>
-                        <textarea v-model="combined_with" rows="4" cols="100"></textarea>
+                        <textarea v-model="wordlist.combined_with" rows="4" cols="100"></textarea>
                     </div>  
                     <!-- <img class="edit_delete_type" @click="deleteOne(index)" src="../assets/trash.svg" /> -->
                 
@@ -72,7 +75,7 @@
     </div>
 </template>
 <script>
-
+import axios from 'axios';
 export default {
     name: 'AddOneTopic',
     data(){
@@ -84,7 +87,14 @@ export default {
             list_lang:["English","Bulgarian","Dutch","Finnish","French","Italian","German","Norwegian","Spanish"],
             single_words:"",
             at_least:"",
-            combined_with:""
+            combined_with:"",
+            wordlist:{
+                shortName:"",
+                FullName:"",
+                single_words:"",
+                at_least:"",
+                combined_with:""
+            }
 
         }
     },
@@ -102,7 +112,25 @@ export default {
         // },
        confirm(){
 
-       },
+        if(this.wordlist.shortName!=""){
+               // console.log(this.emailcontent)
+            const path = `${this.GLOBAL.BASE_URL}addtopic`
+            axios.post(path, this.wordlist, {headers:{"Content-Type" : "application/json"}})
+            .then((res) => {
+                // console.log(res.data);
+                if(res.data!=false){
+                    console.log(res.data);
+                    
+                }
+            })
+            .catch((error)=>{
+                console.log(error)
+            }) 
+            }
+            else{
+                alert("Complete your message ! ")
+            }
+        },
        cancel(){
         
        }
