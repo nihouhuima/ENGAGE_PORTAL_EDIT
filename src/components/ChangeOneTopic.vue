@@ -1,7 +1,7 @@
 <template>
     <div>
         <p> change topic</p>
-        <p>{{this.$route.params.topic }}</p>
+        <p>{{this.$route.params.topic }}</p> 
         
         
         <div v-for="lan in terms" :key="lan.language">
@@ -79,7 +79,7 @@ export default {
     },
     created(){
         this.terms=this.$route.params.terms
-        // console.log(this.$route.params)
+        console.log(this.$route.params.terms)
     }
     
 }

@@ -15,6 +15,7 @@ export default new VueRouter({
         {
             path: '/edit',
             component: Edit,
+            name:'Edit',
             redirect: '/edit/EditTopic',
             children:[
                 {

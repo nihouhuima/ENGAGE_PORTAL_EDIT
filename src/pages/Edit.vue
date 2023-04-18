@@ -14,7 +14,9 @@
                 </div>
             </div>
             <div class="edit_right">
-                <router-view></router-view>
+                <KeepAlive>
+                    <router-view></router-view>
+                </KeepAlive>
             </div>    
             
    

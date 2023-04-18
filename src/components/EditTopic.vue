@@ -76,8 +76,9 @@ export default {
                     }
 
                 }
-                // console.log(this.topicSDG);
-                // console.log(this.topicEngage);
+                // console.log(this.topic)
+                //  console.log(this.topicSDG);
+                //  console.log(this.topicEngage);
             })
             .catch((error) => {
             console.error(error);
@@ -106,8 +107,8 @@ export default {
         routerto(){
             this.$router.push({
                 name:"AddOneTopic",
-                query:{
-                }
+                params: this.topic
+                
             })
         }
     },
