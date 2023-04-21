@@ -16,6 +16,11 @@ header{
 .edit_right{
     overflow-y: scroll;
     width: 90%;
+    -ms-overflow-style: none;  /* IE and Edge _ hide scrollbar*/
+    scrollbar-width: none;  /* Firefox _ hide scrollbar*/
+}
+.edit_right::-webkit-scrollbar {
+    display: none;
 }
 .body_container{
     height: 100%;
@@ -40,8 +45,8 @@ p{
     margin: 0%;
 }
 .edit_content{
-    display: flex;
     display: -webkit-flex;
+    display: flex;
     flex-direction:row;
     height: 94%;
 } 
@@ -51,6 +56,7 @@ h2{
 .edit-text{
     padding-left: 2em;
     padding-bottom: 1em;
+    display: -webkit-flex;
     display: flex;
     flex-direction: row;
     justify-items: center;
@@ -103,7 +109,10 @@ h2{
     margin-right: 1.5em;
 }
 .edit_change{
-    margin:1em;
+    margin-top: 1em;
+    margin-left:2em;
+    margin-right: 2em;
+    margin-bottom: 2em;
 }
 a{
     text-decoration: none;
@@ -134,6 +143,7 @@ a :hover{
     margin-top: 1em;
     margin-bottom: 1em;
     margin-left: 1em;
+    display: -webkit-flex;
     display: flex;
     flex-direction: row;
 }
@@ -176,4 +186,89 @@ a :hover{
 .alert_name{
     font-style: italic;
     color: red;
+}
+.changetopic_title{
+    margin-bottom: 1em;
+    font-size: larger;
+    font-weight: 600;
+    margin-left: 1em;
+}
+.changet_words{
+    margin-top: 1em;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.changet_each_word{
+    margin-right: 1em;
+    margin-bottom: 1em;
+    border: #888888 1px solid;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    box-shadow: 0 1px 6px #888888;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+.changet_subtitle{
+    font-size: 1.2em;
+    font-weight: 600;
+}
+.changet_words_div{
+}
+.changet_img{
+    max-height: 1em;
+    margin-left: 0.5em;
+}
+.changet_img_div{
+    display: flex;
+    justify-content: center;
+}
+.changet_img:hover{
+    cursor: pointer;
+}
+.changet_word_it:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.change_topic_type{
+    margin-top: 0%;
+    margin-bottom: 0%;
+    margin-right: 1em;
+    font-weight: 500;
+}
+.change_img{
+    height: 2em;
+    width: 2em;
+    margin-left: 1em;
+    cursor: pointer;
+}
+.each_word_last{
+    height: 1.5em;
+    width: 1.5em;
+    padding: 0;
+    border-radius: 50%;
+}
+.each_img_add{
+    max-height: 0.9em;
+    margin-left: auto;
+    margin-right: auto;
+}
+.changet_top{
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+}
+.changet_addlan{
+    text-decoration: underline;
+
+}
+.changet_addlan:hover{
+    cursor:pointer;
+    color: #235787;
 }

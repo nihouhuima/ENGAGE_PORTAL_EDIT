@@ -86,7 +86,7 @@ export default {
     name: 'AddOneTopic',
     data(){
         return{
-            topic_type:"",
+            // topic_type:"",
             lang:"English",
             list_lang:["English","Bulgarian","Dutch","Finnish","French","Italian","German","Norwegian","Spanish"],
             wordlist:{
@@ -104,9 +104,9 @@ export default {
         }
     },
     methods:{
-        getRouterData() {
-            this.topic_type = this.$route.query.topic_type
-        },
+        // getRouterData() {
+        //     this.topic_type = this.$route.query.topic_type
+        // },
         // addOne(){
         //     this.keywords.push({type:"",text:""});
         //     this.TypesList();
@@ -170,14 +170,14 @@ export default {
                 .then(this.confirm())
                 .then(()=>{
                     if (this.flag){
-                        alert("successfully added");
+                        this.$message("successfully added");
                         this.$router.push({
                         name:"Edit"});
                         setTimeout(function(){
                             window.location.reload();
                         }, 100)
                     }else{
-                        alert("Failed, please try it later");
+                        this.$message("Failed, please try it later");
                         this.$router.push({
                             name: "Edit"
                         });
@@ -222,9 +222,9 @@ export default {
        }
     },
     created(){
-        this.getRouterData();
-        for(var m in this.$route.params){
-            this.topic.push(this.$route.params[m])
+        // this.getRouterData();
+        for(var m in this.$route.query){
+            this.topic.push(this.$route.query[m])
         }
     }, 
     computed:{

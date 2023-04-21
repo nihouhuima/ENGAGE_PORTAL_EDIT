@@ -14,9 +14,9 @@
                 </div>
             </div>
             <div class="edit_right">
-                <KeepAlive>
+                <keep-alive include="AddOneTopic" exclude="ChangeOneTopic">
                     <router-view></router-view>
-                </KeepAlive>
+                </keep-alive>
             </div>    
             
    
