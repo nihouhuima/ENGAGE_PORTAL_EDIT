@@ -10,7 +10,7 @@
             <tr>
                 <td>Modify</td><td>University</td>
             </tr>
-            <tr class="edit_tr" v-for="element in partners['partnerinfo']" :key="element.shortName">
+            <tr class="edit_tr" v-for="element in partners" :key="element.shortName">
                 <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata(element)"></td>
                 <td><span>{{element.longName}}</span></td>
             </tr>
@@ -32,7 +32,7 @@ export default {
             const path = `${this.GLOBAL.BASE_URL}/partnerinfo`;
             axios.get(path)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.partners = res.data;
                 
             })
@@ -42,7 +42,7 @@ export default {
             });
         },
         choosedata(element){
-            console.log(element)
+            // console.log(element)
             this.$router.push({
                 name:"ChangeOnePartner",
                 query:element
