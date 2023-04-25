@@ -5,6 +5,7 @@
             <router-link :to="{name: 'EditTopic'}"><img id="edit_return" src="../assets/return.png" alt="Return"/></router-link>
             <p class="changetopic_title"> Modify information for the topic: {{this.topic }} ({{ this.fullTopic }})</p>
         </div>
+
         <div v-for="(lan, index) in terms" :key="index">
 
             <div class="edit_content_container"> 
@@ -12,20 +13,20 @@
                     <p class="changet_subtitle">language : {{ lan.language }}</p>
                 </div>  
             </div>
-            <div v-for="typew in typeList" :key="typew" class="changet_words_div">
+            <div v-for="(typew, key) in typeList" :key="key" class="changet_words_div">
             <!-- <div v-for="typew in readtypeword(lan)" :key="typew" class="changet_words_div"> -->
                 <div class="edit_content_container"> 
                     <p class="change_topic_type">{{ typew }}</p>
                 </div>
                  
                 <div class="changet_words">
-                    <div v-for="word in returnWords(typew, lan)" :key="word" class="changet_each_word">
+                    <div v-for="word in returnWords(key, lan)" :key="word" class="changet_each_word">
                     <!-- <div v-for="word in lan[typew]" :key="word" class="changet_each_word"> -->
-                        <div><p class="changet_word_it" @click="selectWord(word, lan.language, typew, lan[typew])">{{ word }}</p> </div>
-                        <img src="../assets/croix1.png" alt="delete" @click="deletewords(word, lan.language, typew)" class="changet_img">
+                        <div><p class="changet_word_it" @click="selectWord(word, lan.language, key, lan[key])">{{ word }}</p> </div>
+                        <img src="../assets/croix1.png" alt="delete" @click="deletewords(word, lan.language, key)" class="changet_img">
                     </div>
                     <div class="changet_each_word each_word_last">
-                        <img class="edit_img each_img_add" src="../assets/plus2.png" alt="add" title="Add Keyword" @click="selectAddWord(typew, lan)">
+                        <img class="edit_img each_img_add" src="../assets/plus2.png" alt="add" title="Add Keyword" @click="selectAddWord(key, lan)">
                     </div>
                 </div>
             </div>
@@ -95,7 +96,12 @@ export default {
                 type:"",
                 listType:[]
             },
-            typeList:["singleWord","atLeast","combinedWith"]
+            // typeList:["singleWord","atLeast","combinedWith"],
+            typeList:
+                {singleWord: "Single Term",
+                 atLeast: "At Least",
+                 combinedWith: "Combined With"}
+            
             
         }
     },
@@ -108,17 +114,6 @@ export default {
                 return null
             }
         },
-        // readtypeword(lan){
-        //     var list=Object.keys(lan)
-        //     // console.log(list)
-        //     var typeword1=[]
-        //     for(var i=0; i<list.length;i++){
-        //         if (list[i]!='language'){
-        //             typeword1.push(list[i])
-        //         }
-        //     }
-        //     return typeword1
-        // },
         addtypeword(lan){
             var list=Object.keys(lan)
             console.log(list)
@@ -211,13 +206,13 @@ export default {
         },
         modifyWord(){
             if(this.modif.newWord==""){
-                this.$message("The block can't be empty") 
+                this.$message.error("The block can't be empty") 
             }else if(this.modif.newWord==this.modif.changed){
-                this.$message("Please fill in another word other than the original one") 
+                this.$message.error("Please fill in another word other than the original one") 
             }else if(this.Repet(this.modif.newWord, this.modif.wordlist)){
-                this.$message("The keyword already exists") 
+                this.$message.error("The keyword already exists") 
             }else{
-                this.$confirm(`Do you want to change keyword "${this.modif.changed}" to "${this.modif.newWord}" for the type "${this.modif.type}" in ${this.modif.lanTarget}?`, "confirmation", {
+                this.$confirm(`Do you want to change keyword "${this.modif.changed}" to "${this.modif.newWord}" for the type "${this.typeList[this.modif.type]}" in ${this.modif.lanTarget}?`, "confirmation", {
                 iconClass : "el-icon-question",
                 confirmButtonText: "Yes",
                 cancelButtonText: "No",
@@ -286,11 +281,11 @@ export default {
         },
         addWord(){
             if(this.modif.newWord==""){
-                this.$message("The block can't be empty") 
+                this.$message.error("The block can't be empty") 
             }else if(this.Repet(this.modif.newWord, this.modif.wordlist)){
-                this.$message("The keyword already exists") 
+                this.$message.error("The keyword already exists") 
             }else{
-                this.$confirm(`Do you want to add keyword "${this.modif.newWord}" for the type "${this.modif.type}" in ${this.modif.lanTarget}?`, "confirmation", {
+                this.$confirm(`Do you want to add keyword "${this.modif.newWord}" for the type "${this.typeList[this.modif.type]}" in ${this.modif.lanTarget}?`, "confirmation", {
                 iconClass : "el-icon-question",
                 confirmButtonText: "Yes",
                 cancelButtonText: "No",
@@ -357,7 +352,7 @@ export default {
         this.terms = JSON.parse(sessionStorage.getItem("element")).terms
         this.topic = JSON.parse(sessionStorage.getItem("element")).topic
         this.fullTopic = JSON.parse(sessionStorage.getItem("element")).topicFullName
-
+        // console.log(Object.entries(this.typeList)) 
     },
     watch:{
         dialogVisible: {

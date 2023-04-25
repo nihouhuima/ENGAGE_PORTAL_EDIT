@@ -2,50 +2,55 @@
     <div class="edit_component"> 
         <div class="edit_content_container">
             <div class="edit_menu_text"> 
-                <p class="edit_title">Topic Engage</p>
+                <p class="edit_title">Partners</p>
             </div>
-            <router-link :to="{name: 'AddOneTopic'}"><img src="../assets/plus.png" alt="add" class="edit_img"></router-link>
-            <router-link :to="{name: 'ChangeOneTopic'}"><img src="../assets/crayon.png" alt="add" class="edit_img"></router-link>
         </div>
-        <ul> 
-            <div v-for="element in partner" :key="element.shortname">
-                <li class="edit-text">{{element.text}}</li>
-            </div>
-        </ul>
+<!-- {{ partners }} -->
+        <table class="edit_table">
+            <tr>
+                <td>Modify</td><td>University</td>
+            </tr>
+            <tr class="edit_tr" v-for="element in partners['partnerinfo']" :key="element.shortName">
+                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata(element)"></td>
+                <td><span>{{element.longName}}</span></td>
+            </tr>
+                
+
+        </table>
     </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
     data(){
         return{
-            partner:[{
-                shortname: "TU",
-                text: "Tilburg University"
-            },
-            {
-                topicname: "UMA",
-                text: "Universität Mannheim"
-            },
-            {
-                topicname: "LUISS",
-                text: "Libera Università Internazionale degli Studi Sociali"
-            },
-            {
-                topicname: "UTC",
-                text: "Université Toulouse 1 Capitole"
-            },
-            {
-                topicname: "UNWE",
-                text: "University of National and World Economy"
-            },
-            {
-                topicname: "WU",
-                text: "Wirtschaftsuniversität Wien"
-            }
-        ]
+        partners:[],
         }
     },
     methods: {
+        getdata(){
+            const path = `${this.GLOBAL.BASE_URL}/partnerinfo`;
+            axios.get(path)
+            .then((res) => {
+                console.log(res.data);
+                this.partners = res.data;
+                
+            })
+            .catch((error) => {
+            // eslint-disable-next-line
+            console.error(error);
+            });
+        },
+        choosedata(element){
+            console.log(element)
+            this.$router.push({
+                name:"ChangeOnePartner",
+                query:element
+            })
+        }
+    },
+    created(){
+        this.getdata()
     }
     
 }

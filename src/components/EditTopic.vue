@@ -3,7 +3,7 @@
         
         <div class="edit_content_container">
             <div class="edit_menu_text"> 
-                <p class="edit_title">Engage Topic </p>
+                <p class="edit_title">Engage Topics </p>
             </div>
             <a @click="routerto()"><img src="../assets/plus.png" alt="add" class="edit_img"></a>
         </div>
@@ -25,7 +25,7 @@
 
         <div class="edit_content_container">
             <div class="edit_menu_text"> 
-                <p class="edit_title">SDG Topic </p>
+                <p class="edit_title">SDG Topics </p>
             </div>
         </div>
         
@@ -105,9 +105,6 @@ export default {
             window.sessionStorage.setItem("element", str)
             this.$router.push({
                 name:"ChangeOneTopic",
-                // query: element
-                // ,
-                // params: element
             })
         },
         deleteTopic(element){

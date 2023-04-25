@@ -36,27 +36,27 @@
                
                     
                     <div>
-                        <table><tr><td><p>Type : Single words</p></td>
+                        <table><tr><td><p>Type: Single Terms</p></td>
                         </tr>
                         </table>
-                        <p id="edit_espace"> Words<span>  (please separate the words by ",")</span></p>
-                        <textarea v-model="wordlist.single_words" rows="4" cols="120"></textarea>
+                        <p id="edit_espace"> Terms<span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
+                        <textarea v-model="wordlist.single_words" rows="4" cols="120" class="add_topix_textarea">example</textarea>
                     </div>  
                     <br>
                     <div>
-                        <table><tr><td><p>Type : At least</p></td>
+                        <table><tr><td><p>Type: At least</p></td>
                         </tr>
                         </table>
-                        <p id="edit_espace"> Words<span>  (please separate the words by ",")</span></p>
-                        <textarea v-model="wordlist.at_least" rows="4" cols="120"></textarea>
+                        <p id="edit_espace"> Terms<span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
+                        <textarea v-model="wordlist.at_least" rows="4" cols="120" class="add_topix_textarea"></textarea>
                     </div>  
                     <br>
                     <div>
-                        <table><tr><td><p>Type : Combined with</p></td>
+                        <table><tr><td><p>Type: Combined with</p></td>
                         </tr>
                         </table>
-                        <p id="edit_espace"> Words<span>  (please separate the words by ",")</span></p>
-                        <textarea v-model="wordlist.combined_with" rows="4" cols="120"></textarea>
+                        <p id="edit_espace"> Terms<span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
+                        <textarea v-model="wordlist.combined_with" rows="4" cols="120" class="add_topix_textarea"></textarea>
                     </div>  
                     <!-- <img class="edit_delete_type" @click="deleteOne(index)" src="../assets/trash.svg" /> -->
                 
@@ -88,7 +88,6 @@ export default {
         return{
             // topic_type:"",
             lang:"English",
-            list_lang:["English","Bulgarian","Dutch","Finnish","French","Italian","German","Norwegian","Spanish"],
             wordlist:{
                 shortName:"",
                 FullName:"",
@@ -177,7 +176,7 @@ export default {
                             window.location.reload();
                         }, 100)
                     }else{
-                        this.$message("Failed, please try it later");
+                        this.$message.error("Failed, please try it later");
                         this.$router.push({
                             name: "Edit"
                         });
@@ -193,7 +192,7 @@ export default {
                 }
             
         }else{
-            alert("Complete your message! Fields marked with an asterisk are required.")
+            alert("Please complete your message! Fields marked with an asterisk are required.")
         }
         
        },

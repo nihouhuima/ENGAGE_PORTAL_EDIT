@@ -219,8 +219,6 @@ a :hover{
     font-size: 1.2em;
     font-weight: 600;
 }
-.changet_words_div{
-}
 .changet_img{
     max-height: 1em;
     margin-left: 0.5em;
@@ -271,4 +269,30 @@ a :hover{
 .changet_addlan:hover{
     cursor:pointer;
     color: #235787;
+}
+.add_topic_notif{
+    font-style: italic;
+    color: #888888;
+}
+.add_topix_textarea{
+    margin-top: 0.3em;
+    margin-left: 0.8em;
+}
+.change_part_logo{
+    max-height: 5em;
+}
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.change_part_show_photo{
+    max-height: 5em;
+}
+.change_part_show_photo_container{
+    height: 5em;
 }
