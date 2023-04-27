@@ -296,3 +296,6 @@ input[type="file"] {
 .change_part_show_photo_container{
     height: 5em;
 }
+.hideUpload > div {
+    display: none;
+  }

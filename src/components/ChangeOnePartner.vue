@@ -17,12 +17,12 @@
                 <td>{{ element.longName }}</td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('longName')"></td>
+                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOAI')"></td>
                 <td>OAI URL</td>
                 <td>{{ element.urlOAI }}</td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('longName')"></td>
+                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOARepository')"></td>
                 <td>University URL</td>
                 <td>{{ element.urlOARepository }}</td>
             </tr>
@@ -43,13 +43,13 @@
         title="Modification"
         :visible.sync="dialogVisible"
         width="30%">
-            <p>Original {{target}}: </p>
+            <p>Original {{showKey()}}: </p>
             <p><b>{{ element[target] }}</b></p><br>
-            <p>new {{target}}:  </p>
+            <p>New {{showKey()}}:  </p>
             <el-input v-model="modifiedinfo.content"></el-input>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">cancel</el-button>
-                <el-button type="primary" @click="modifyWord()">confirm</el-button>
+                <el-button @click="dialogVisible = false">Cancel</el-button>
+                <el-button type="primary" @click="modifyWord()">Confirm</el-button>
             </span>
         </el-dialog>
 
@@ -107,8 +107,7 @@ export default {
             fileList: [],
             dialogImageUrl: "",
             dialogVisibleB:false,
-            fileParam: "",
-            
+            fileParam: ""
         }
     },
     methods:{
@@ -123,10 +122,22 @@ export default {
             }
             
         },
+        showKey(){
+            if (this.target == "shortName"){
+                return "Short Name"
+            }else if(this.target=="longName"){
+                return "Full Name"
+            }else if(this.target=="urlOAI"){
+                return "OAI URL"
+            }else if(this.target == "urlOARepository"){
+                return "University URL"
+            }else{
+                return ""
+            }
+        },
         haveimg(element){
             if(typeof element.img !== 'undefined'){
                 return true;
-
             }
             else{
                 return false;

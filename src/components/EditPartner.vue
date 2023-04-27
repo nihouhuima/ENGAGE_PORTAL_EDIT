@@ -4,6 +4,7 @@
             <div class="edit_menu_text"> 
                 <p class="edit_title">Partners</p>
             </div>
+            <a @click="routerto()"><img src="../assets/plus.png" alt="add" class="edit_img"></a>
         </div>
 <!-- {{ partners }} -->
         <table class="edit_table">
@@ -46,6 +47,13 @@ export default {
             this.$router.push({
                 name:"ChangeOnePartner",
                 query:element
+            })
+        },
+        routerto(){
+            this.$router.push({
+                name:"AddOnePartner",
+                query: this.topic
+                
             })
         }
     },

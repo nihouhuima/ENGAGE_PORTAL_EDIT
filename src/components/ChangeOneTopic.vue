@@ -220,9 +220,6 @@ export default {
                 type: "warning"
                 })
                 .then(()=>{this.modify()}) // to do : success ou failure based on return value
-                .then(()=>{
-                    
-                })
                 .catch((error)=>{
                     this.$notify.error({
                                 title: "failure",
