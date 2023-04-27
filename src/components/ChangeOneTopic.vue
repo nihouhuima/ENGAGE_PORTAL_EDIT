@@ -36,7 +36,7 @@
 
         <div class="edit_content_container"> 
             <div class="edit_menu_text"> 
-                <p class="changet_subtitle changet_addlan" @click="addLan()">Add another language<b> + </b></p> 
+                <!-- <p class="changet_subtitle changet_addlan" @click="addLan()">Add another language<b> + </b></p>  -->
             </div>  
         </div>
 
