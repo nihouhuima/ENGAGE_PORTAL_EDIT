@@ -7,9 +7,9 @@
         <table class="edit_table">
             <tr class="edit_tr"><td>Modify</td><td>Key</td><td>Value</td></tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('shortName')"></td>
+                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('NameAffiche')"></td>
                 <td>Short Name</td>
-                <td>{{ element.shortName }}</td>
+                <td>{{ element.NameAffiche }}</td>
             </tr>
             <tr class="edit_tr">
                 <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('longName')"></td>
@@ -123,7 +123,7 @@ export default {
             
         },
         showKey(){
-            if (this.target == "shortName"){
+            if (this.target == "NameAffiche"){
                 return "Short Name"
             }else if(this.target=="longName"){
                 return "Full Name"
