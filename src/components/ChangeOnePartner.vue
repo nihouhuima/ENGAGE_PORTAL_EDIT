@@ -75,7 +75,7 @@
             <i class="el-icon-plus"></i>
         </el-upload>
         <el-dialog v-model="dialogVisibleB">
-            <img width="100%" :src="dialogImageUrl" alt="" />
+            <img class="avatar" width="100%" :src="dialogImageUrl" alt="" />
         </el-dialog>
 
             <span slot="footer" class="dialog-footer">
@@ -87,7 +87,12 @@
 
     </div>
 </template>
+
+<style>
+</style>
+
 <script>
+
 import axios from 'axios';
 export default {
     data(){
@@ -117,6 +122,7 @@ export default {
                 // console.log(this.element[key])
                 this.target = key
                 this.dialogVisible = true
+                this.modifiedinfo.content=""
             }else{
                 this.dialogVisibleImg = true
             }
@@ -161,11 +167,33 @@ export default {
             this.showImg=!this.showImg;
         },
         modifyWord(){
+            if(this.modifiedinfo.content==""){
+                this.$message.error("The block can't be empty!")
+            }else if(this.modifiedinfo.content==this.element[this.target]){
+                this.$message.error("Please choose another one!") 
+            }else{
+                this.$confirm(`Do you want to change "${this.target}" from "${this.element[this.target]}" to "${this.modifiedinfo.content}"?`, "confirmation", {
+                iconClass : "el-icon-question",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+                showClose: true, // Whether or not to display the top right hand corner close button
+                type: "warning"
+                })
+                .then(()=>{this.modify()}) // to do : success ou failure based on return value
+                .catch((error)=>{
+                    this.$notify.error({
+                                title: "failure",
+                                message: error,
+                                duration: 1500
+                            })
+            })
+            }
+            
+        },
+        modify(){
             this.modifiedinfo.tag=this.target;
             this.modifiedinfo.partner=this.element.shortName;
-            // console.log(this.modifiedinfo)
             const path = `${this.GLOBAL.BASE_URL}changePartnerinfo`;
-
             axios({
                 method: "post",
                 url: path,
@@ -177,13 +205,20 @@ export default {
                     if(response.data==true){
                         this.dialogVisible = false;
                         this.getdata();
-                        
+                        this.$notify({
+                            type:"success",
+                            message:"successfully modified",
+                            duration: 1500
+                            })
                     }
                     
                 })
                 .catch((e) => {
-                    console.log("error: ");
-                    console.log(e);
+                    this.$notify.error({
+                            title: "failure",
+                            message: e,
+                            duration: 1500
+                        })
                 });
         },
         handleClick() {
@@ -206,8 +241,11 @@ export default {
                     
                 })
                 .catch((e) => {
-                    console.log("error: ");
-                    console.log(e);
+                    this.$notify.error({
+                            title: "failure",
+                            message: e,
+                            duration: 1500
+                        })
                 });
         },
         srcImg(img){
@@ -240,7 +278,7 @@ export default {
     
     },
     created(){
-        this.element  = this.$route.query
+        this.element  = JSON.parse(sessionStorage.getItem("element"))
         this.getdata();
     }
     

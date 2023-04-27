@@ -9,10 +9,10 @@
             </div>
             <table id="edit_add_topic_table"> 
                 <tr> 
-                    <td><p>*Short Name:</p></td><td><input v-model="wordlist.shortName" type="text" @change="nameexist(0)" required></td><td><p class="alert_name">{{ nameoks }}</p></td>
+                    <td><p>*Short Name:</p></td><td><el-input v-model="wordlist.shortName" type="text" @change="nameexist(0)" required></el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
                 </tr>
                 <tr> 
-                    <td><p>*Full Name :</p></td><td><input v-model="wordlist.FullName" type="text" @change="nameexist(1)" required></td><td><p class="alert_name">{{ nameokf }}</p></td>
+                    <td><p>*Full Name :</p></td><td><el-input v-model="wordlist.FullName" type="text" @change="nameexist(1)" required></el-input></td><td><p class="alert_name">{{ nameokf }}</p></td>
                 </tr>
             </table>
         </div>
@@ -40,7 +40,7 @@
                         </tr>
                         </table>
                         <p id="edit_espace"> Terms<span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
-                        <textarea v-model="wordlist.single_words" rows="4" cols="120" class="add_topix_textarea">example</textarea>
+                        <el-input type="textarea" v-model="wordlist.single_words" rows="4" cols="120" class="add_topix_textarea">example</el-input>
                     </div>  
                     <br>
                     <div>
@@ -48,7 +48,7 @@
                         </tr>
                         </table>
                         <p id="edit_espace"> Terms<span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
-                        <textarea v-model="wordlist.at_least" rows="4" cols="120" class="add_topix_textarea"></textarea>
+                        <el-input type="textarea" v-model="wordlist.at_least" rows="4" cols="120" class="add_topix_textarea"></el-input>
                     </div>  
                     <br>
                     <div>
@@ -56,14 +56,15 @@
                         </tr>
                         </table>
                         <p id="edit_espace"> Terms<span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
-                        <textarea v-model="wordlist.combined_with" rows="4" cols="120" class="add_topix_textarea"></textarea>
+                        <el-input type="textarea" v-model="wordlist.combined_with" rows="4" cols="120" class="add_topix_textarea"></el-input>
                     </div>  
                     <!-- <img class="edit_delete_type" @click="deleteOne(index)" src="../assets/trash.svg" /> -->
                 
                 <!-- <p id="edit_add_set_keywords" @click="addOne()">+ Add a new set of keywords</p> -->
                 <div class="addtopic_button_container"> 
-                    <button class="addtopic_button" @click="clickConfirm()">Confirm</button>
-                    <button class="addtopic_button" @click="cancel()">cancel</button>
+                    <el-button @click="cancel()">cancel</el-button> <!--  -->
+                    <el-button  type="primary" @click="clickConfirm()">Confirm</el-button> <!-- class="addtopic_button" -->
+                    
                 </div>
             
             </div>
@@ -156,9 +157,9 @@ export default {
                 }
             }
             if(shortfound==true){
-                alert("short name exists")
+                this.$message.error("short name exists") 
             }else if(fullfound==true){
-                alert("full name exists")
+                this.$message.error("full name exists")
             }else{
                 this.$confirm( "Do you confirm the submission of information?","Confirmation of addition", {
                 iconClass : "el-icon-question",
@@ -169,12 +170,13 @@ export default {
                 .then(this.confirm())
                 .then(()=>{
                     if (this.flag){
-                        this.$message("successfully added");
+                        this.$notify({
+                            type:"success",
+                            message:"successfully added",
+                            duration: 1500
+                            })
                         this.$router.push({
                         name:"Edit"});
-                        setTimeout(function(){
-                            window.location.reload();
-                        }, 100)
                     }else{
                         this.$message.error("Failed, please try it later");
                         this.$router.push({

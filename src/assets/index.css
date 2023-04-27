@@ -122,7 +122,6 @@ a :hover{
     color: #235787;
 }
 .edit_table tr, td{
-    border: white solid 1px;
     padding-left: 0.5em;
     padding-right: 0.5em;
 }
@@ -163,6 +162,7 @@ a :hover{
 }
 #edit_add_topic_table{
     margin-bottom: 1em;
+    border: 0ch solid black;
 }
 #edit_espace{
     margin-left: 0.6em;
@@ -171,17 +171,9 @@ a :hover{
     max-height: 1.6em;
     margin-bottom: 1em;
 }
-.addtopic_button{
-    padding: 0.5em;
-    font-size: 1em;
-    background-color: #235787;
-    color: white;
-    border: 0ch;
-    margin-right: 2em;
-    margin-top: 0.5em;
-}
 .addtopic_button_container{
     text-align: center;
+    margin-top: 1em;
 }
 .alert_name{
     font-style: italic;
