@@ -56,12 +56,18 @@
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>Contact</td>
-                <td><p v-for="(cont,index) in modifiedinfo.modified.contact" :key="index">{{ cont.detail }} : {{ cont.email }} {{ cont.url }}</p></td>
+                <td>Contact<el-button round @click="addcontact()">+</el-button></td>
+                <td><div v-for="(cont,index) in modifiedinfo.modified.contact" :key="index">
+                    <p>{{ index+1 }}<el-button round @click="removecontact(index)">x</el-button></p>
+                    Detail : <el-input type="text" v-model="modifiedinfo.modified.contact[index].detail"></el-input>
+                    Email : <el-input type="text" v-model="modifiedinfo.modified.contact[index].email"></el-input>
+                    URL : <el-input type="text" v-model="modifiedinfo.modified.contact[index].url"></el-input>
+                </div></td>
             </tr>
             <tr class="edit_tr">
                 <td>Language</td>
-                <td><p v-for="lang in modifiedinfo.modified.language" :key="lang">{{ lang }} </p></td>
+                <td><p v-for="lang in langs" :key="lang">
+                    {{ lang }}<input name="type" type="checkbox" :value="lang" v-model="modifiedinfo.modified.language"> </p></td>
             </tr>
         </table>
        <!-- {{ modifiedinfo.modified }} -->
@@ -90,6 +96,7 @@ export default {
             dialogVisible:false,
             attri:'',
             uniquename:true,
+            langs:['English', 'French', 'German', 'Italian', 'Spanish', 'Dutch','Bulgarian','Norwegian','Swedish','Latin'],
             modifiedinfo:{
                 oldname: this.$route.query.name,
                 modified:{
@@ -212,6 +219,27 @@ export default {
                             message:"successfully changed",
                             duration: 1500
                             })
+                }
+            })
+            .catch((error)=>{
+                console.log(error)
+            });
+        },
+        addcontact(){
+            this.modifiedinfo.modified.contact.push({'email': null,'url':null,'detail':null})
+        },
+        removecontact(index){
+            if(index!=0){
+                this.$delete(this.modifiedinfo.modified.contact, index)
+            }
+        },
+        addRes(){
+            const path = `${this.GLOBAL.BASE_URL}modifyresources`;
+            axios.post(path, this.modifiedinfo, {headers:{"Content-Type" : "application/json"}})
+            .then((res) => {
+                // console.log(res.data);
+                if(res.data.modify){
+                    alert("New resource added successfully");
                 }
             })
             .catch((error)=>{
