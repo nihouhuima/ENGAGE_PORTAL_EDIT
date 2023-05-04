@@ -7,52 +7,50 @@
             <p class="changetopic_title"> update information for {{ myresourceinfo.name }}</p>
         </div>
         <table class="edit_table">
-            <tr><td>Modify</td><td>Key</td><td>Value</td></tr>
-            
+
             <tr class="edit_tr">
-                <td class="edit_img_center"></td>
                 <td>Name</td>
-                <td>{{ myresourceinfo.name }}</td>
+                <td><el-input type="text" v-model="modifiedinfo.modified.name"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"></td>
                 <td>University</td>
-                <td>{{ myresourceinfo.university }}</td>
+                <td><div v-for="un in filter.university" :key="un.shortName">
+                    <input  type="radio" :id="un.shortName" :value="un.shortName" v-model="modifiedinfo.modified.university">
+                    <label :for="un.shortName">{{un.longName}}</label>
+                    </div>
+                </td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="attri='description';dialogVisible=true;"></td>
                 <td>Description</td>
-                <td>{{ myresourceinfo.description }}</td>
+                <td><el-input type="text" v-model="modifiedinfo.modified.description"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="attri='url';dialogVisible=true;"></td>
                 <td>URL</td>
-                <td>{{ myresourceinfo.url }}</td>
+                <td><el-input type="text" v-model="modifiedinfo.modified.url"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="attri='type';dialogVisible=true;"></td>
                 <td>Type</td>
-                <td><p v-for="ty in myresourceinfo.type" :key="ty">{{ ty }} </p></td>
+                <td><div v-for="ty in filter.type" :key="ty.Type_normalise">
+                    <input name="type" type="checkbox" :value="ty.Type_normalise" v-model="modifiedinfo.modified.type"> {{ty.Type_normalise}}
+                    </div>
+                    <!-- <p v-for="ty in myresourceinfo.type" :key="ty">{{ ty }} </p> -->
+                </td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="attri='access';dialogVisible=true;"></td>
                 <td>Access</td>
                 <td>
                     {{ myresourceinfo.access }}
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="attri='audience';dialogVisible=true;"></td>
                 <td>Audience</td>
                 <td><p v-for="au in myresourceinfo.audience" :key="au">{{ au }} </p></td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="attri='contact';dialogVisible=true;"></td>
                 <td>Contact</td>
                 <td><p v-for="(cont,index) in myresourceinfo.contact" :key="index">{{ cont.detail }} : {{ cont.email }} {{ cont.url }}</p></td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="attri='language';dialogVisible=true;"></td>
                 <td>Language</td>
                 <td><p v-for="lang in myresourceinfo.language" :key="lang">{{ lang }} </p></td>
             </tr>
@@ -101,9 +99,20 @@ export default {
             attri:'',
             uniquename:true,
             modifiedinfo:{
-                name: this.$route.query.name,
-                tag:'',
-                content:''}
+                oldname: this.$route.query.name,
+                modified:{
+                    name: "",
+                    university:"",
+                    description:"",
+                    url:"",
+                    type:[],
+                    access:"",
+                    audience:[],
+                    contact:[
+                    ],
+                    language:[]
+                }},
+            filter:{}
         }
     },
     methods:{
@@ -120,8 +129,30 @@ export default {
                     if(this.resources[i].name==this.$route.query.name){
                         this.myresourceinfo=this.resources[i];
                         // console.log(this.myresourceinfo)
+                        this.modifiedinfo.modified.name = this.resources[i].name
+                        this.modifiedinfo.modified.university = this.resources[i].university
+                        this.modifiedinfo.modified.description = this.resources[i].description
+                        this.modifiedinfo.modified.url = this.resources[i].url
+                        this.modifiedinfo.modified.type = this.resources[i].type
+                        this.modifiedinfo.modified.language = this.resources[i].language
+                        this.modifiedinfo.modified.contact = this.resources[i].contact
+                        this.modifiedinfo.modified.audience = this.resources[i].audience
+                        this.modifiedinfo.modified.access = this.resources[i].access
+                        
                     }
                 }
+            })
+            .catch((error) => {
+            // eslint-disable-next-line
+            console.error(error);
+            });
+        },
+        getFilter(){
+            const path = `${this.GLOBAL.BASE_URL}resources_filter`;
+            axios.get(path)
+            .then((res) => {
+                // console.log(res.data);
+                this.filter = res.data;
             })
             .catch((error) => {
             // eslint-disable-next-line
@@ -151,6 +182,7 @@ export default {
     },
     created(){
         this.getdata();
+        this.getFilter();
         // this.myinfo();
         // console.log(this.resources)
     }
