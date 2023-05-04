@@ -7,7 +7,8 @@
             <p class="changetopic_title"> update information for {{ myresourceinfo.name }}</p>
         </div>
         <table class="edit_table">
-            <tr class="edit_tr"><td>Modify</td><td>Key</td><td>Value</td></tr>
+            <tr><td>Modify</td><td>Key</td><td>Value</td></tr>
+            
             <tr class="edit_tr">
                 <td class="edit_img_center"></td>
                 <td>Name</td>
