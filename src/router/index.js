@@ -6,7 +6,8 @@ import AddOneTopic from '../components/AddOneTopic'
 import AddOnePartner from '../components/AddOnePartner'
 import ChangeOneTopic from '../components/ChangeOneTopic'
 import ChangeOnePartner from '../components/ChangeOnePartner'
-
+import EditResource from '../components/EditResource'
+import ChangeOneResource from '../components/ChangeOneResource'
 
 
 export default new VueRouter({
@@ -47,6 +48,16 @@ export default new VueRouter({
                 path: 'ChangeOneTopic',
                 component: ChangeOneTopic,
                 name:'ChangeOneTopic'
+                },
+                {
+                path:'EditResource',
+                component:EditResource,
+                name:'EditResource'
+                },
+                {
+                path:'ChangeOneResource',
+                component:ChangeOneResource,
+                name:'ChangeOneResource'
                 }
 
                 

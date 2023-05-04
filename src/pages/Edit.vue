@@ -12,6 +12,9 @@
                 <div class="edit_menu_text">
                     <router-link :to="{name: 'EditPartner'}"> <h2>  PARTNERS </h2></router-link>
                 </div>
+                <div class="edit_menu_text">
+                    <router-link :to="{name: 'EditResource'}"> <h2>  RESOURCES </h2></router-link>
+                </div>
             </div>
             <div class="edit_right">
                 <keep-alive include="AddOneTopic" exclude="ChangeOneTopic">
