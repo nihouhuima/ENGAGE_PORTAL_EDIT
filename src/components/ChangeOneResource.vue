@@ -48,7 +48,7 @@
             <tr class="edit_tr">
                 <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="attri='contact';dialogVisible=true;"></td>
                 <td>Contact</td>
-                <td><p v-for="cont in myresourceinfo.contact" :key="cont">{{ cont.detail }} : {{ cont.email }} {{ cont.url }}</p></td>
+                <td><p v-for="(cont,index) in myresourceinfo.contact" :key="index">{{ cont.detail }} : {{ cont.email }} {{ cont.url }}</p></td>
             </tr>
             <tr class="edit_tr">
                 <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="attri='language';dialogVisible=true;"></td>
@@ -63,12 +63,19 @@
         title="Modification"
         :visible.sync="dialogVisible"
         width="30%">
-            <p>Original {{attri}}: </p>
-            <p><b>{{ myresourceinfo[attri] }}</b></p><br>
-            <p>New {{attri}}:  </p>
+            <p>Name: <el-input v-model="myresourceinfo.name" @change="existname()"></el-input></p>
+            <p>University: </p>
+            <p>Description: <el-input v-model="myresourceinfo.description"></el-input></p>
+            <p>URL: <el-input v-model="myresourceinfo.url"></el-input></p>
+            <p>Audience: </p>
+            <p>Type: </p>
+            <p>Access: </p>
+            <p>Contact: </p>
+            <p>Language: </p>
+            
             <el-input v-model="modifiedinfo.content"></el-input>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">Cancel</el-button>
+                <el-button @click="dialogVisible = false;getdata();">Cancel</el-button>
                 <el-button type="primary" @click="modifyWord()">Confirm</el-button>
             </span>
         </el-dialog>
@@ -88,8 +95,10 @@ export default {
         return{
             resources:[],
             myresourceinfo:{},
+            
             dialogVisible:false,
             attri:'',
+            uniquename:true,
             modifiedinfo:{
                 name: this.$route.query.name,
                 tag:'',
@@ -119,8 +128,24 @@ export default {
             });
         },
         modifyWord(){
-            this.modifiedinfo.tag=this.attri;
-            console.log(this.modifiedinfo);
+            console.log(this.uniquename);
+        },
+        existname(){
+            if(this.myresourceinfo.name!=this.$route.query.name){
+                const path = `${this.GLOBAL.BASE_URL}resources_name/${this.myresourceinfo.name}`;
+                axios.get(path)
+                .then((res) => {
+                    console.log(res.data);
+                    if(res.data.has){
+                        // console.log(res.data);
+                        this.uniquename=false;
+                    }
+                })
+                .catch((error) => {
+                // eslint-disable-next-line
+                console.error(error);
+                });
+            }
         }
     },
     created(){
