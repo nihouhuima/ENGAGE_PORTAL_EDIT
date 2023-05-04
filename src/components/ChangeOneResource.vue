@@ -70,8 +70,7 @@
                     {{ lang }}<input name="type" type="checkbox" :value="lang" v-model="modifiedinfo.modified.language"> </p></td>
             </tr>
         </table>
-       <!-- {{ modifiedinfo.modified }} -->
-         <!-- pop up for modify one keyword -->
+
          
         <span slot="footer" class="dialog-footer">
             <router-link :to="{name: 'EditResource'}"><el-button>cancel</el-button></router-link>
@@ -79,9 +78,6 @@
         </span>
         
 
-
-    
-    <!-- {{ this.$route.query.name }} -->
   </div>
 </template>
 
@@ -93,10 +89,8 @@ export default {
         return{
             resources:[],
             
-            dialogVisible:false,
-            attri:'',
             uniquename:true,
-            langs:['English', 'French', 'German', 'Italian', 'Spanish', 'Dutch','Bulgarian','Norwegian','Swedish','Latin'],
+            langs:['English', 'French', 'German', 'Italian', 'Spanish', 'Dutch','Bulgarian','Norwegian','Swedish','Latin', 'Other'],
             modifiedinfo:{
                 oldname: this.$route.query.name,
                 modified:{
@@ -135,7 +129,6 @@ export default {
                         this.modifiedinfo.modified.contact = this.resources[i].contact
                         this.modifiedinfo.modified.audience = this.resources[i].audience
                         this.modifiedinfo.modified.access = this.resources[i].access
-                        console.log(this.modifiedinfo.modified)
                     }
                 }
             })
@@ -210,7 +203,7 @@ export default {
             axios.post(path, this.modifiedinfo, {headers:{"Content-Type" : "application/json"}})
             .then((res) => {
                 // console.log(res.data);
-                if(res.data.insert){
+                if(res.data.modify=="true" || res.data.modify==true){
                     this.$router.push({
                             name:"EditResource",
                         })
@@ -233,19 +226,7 @@ export default {
                 this.$delete(this.modifiedinfo.modified.contact, index)
             }
         },
-        addRes(){
-            const path = `${this.GLOBAL.BASE_URL}modifyresources`;
-            axios.post(path, this.modifiedinfo, {headers:{"Content-Type" : "application/json"}})
-            .then((res) => {
-                // console.log(res.data);
-                if(res.data.modify){
-                    alert("New resource added successfully");
-                }
-            })
-            .catch((error)=>{
-                console.log(error)
-            });
-        }
+       
     },
     created(){
         this.getdata();
