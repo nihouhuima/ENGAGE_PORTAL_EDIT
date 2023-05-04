@@ -56,7 +56,12 @@ export default {
             .then((res) => {
                 // console.log(res.data);
                 if(res.data.delete){
-                    alert("Resource deleted successfully");
+                    this.getdata();
+                    this.$notify({
+                            type:"success",
+                            message:"successfully deleted",
+                            duration: 1500
+                            })
                 }
             })
             .catch((error)=>{
