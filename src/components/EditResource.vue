@@ -6,7 +6,7 @@
             <div class="edit_menu_text"> 
                 <p class="edit_title">Resources</p>
             </div>
-            <a @click="routerto()"><img src="../assets/plus.png" alt="add" class="edit_img"></a>
+            <router-link to="/edit/AddOneResource"><img src="../assets/plus.png" alt="add" class="edit_img"></router-link>
         </div>
 
         <table class="edit_table"> 
@@ -17,7 +17,7 @@
                 <td class="edit_img_center"><router-link :to="`/edit/ChangeOneResource?name=${element.name}`">
                     <!-- <router-link :to="{name:'ChangeOneResource'}"> -->
                     <img src="../assets/crayon.png" alt="edit" class="edit_img"></router-link></td> 
-                <td class="edit_img_center"><img src="../assets/gomme.png" alt="delete" class="edit_img" @click="deletePartner(element)"> </td>
+                <td class="edit_img_center"><img src="../assets/gomme.png" alt="delete" class="edit_img" @click="deleteRes(element.name)"> </td>
                 <td>{{ element.name }}</td>
                 <td>{{element.uniinfo.longName}} ({{element.uniinfo.NameAffiche}})</td>
             </tr>
@@ -48,6 +48,19 @@ export default {
             .catch((error) => {
             // eslint-disable-next-line
             console.error(error);
+            });
+        },
+        deleteRes(name){
+            const path = `${this.GLOBAL.BASE_URL}modifyresources`;
+            axios.post(path, {'oldname':name}, {headers:{"Content-Type" : "application/json"}})
+            .then((res) => {
+                // console.log(res.data);
+                if(res.data.delete){
+                    alert("Resource deleted successfully");
+                }
+            })
+            .catch((error)=>{
+                console.log(error)
             });
         }
     },
