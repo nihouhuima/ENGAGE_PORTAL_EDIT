@@ -133,6 +133,10 @@ a :hover{
 .edit_tr:hover{
     background-color: aliceblue;
 }
+.edit_table td{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
 .edit_short_name{
     white-space: nowrap;
 }
@@ -291,3 +295,12 @@ input[type="file"] {
 .hideUpload > div {
     display: none;
   }
+.button_confirm{
+    margin-left: 10px;
+}
+.resource_card{
+    border: #888888 1px solid;
+    box-shadow: 0 1px 3px #888888;
+    border-radius: 0.5em;
+    margin-bottom: 0.5em;
+}

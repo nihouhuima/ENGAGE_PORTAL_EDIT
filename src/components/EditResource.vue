@@ -4,7 +4,7 @@
 
         <div class="edit_content_container">
             <div class="edit_menu_text"> 
-                <p class="edit_title">Resources</p>
+                <p class="edit_title">Resources</p> 
             </div>
             <router-link to="/edit/AddOneResource"><img src="../assets/plus.png" alt="add" class="edit_img"></router-link>
         </div>
@@ -19,7 +19,7 @@
                     <img src="../assets/crayon.png" alt="edit" class="edit_img"></router-link></td> 
                 <td class="edit_img_center"><img src="../assets/gomme.png" alt="delete" class="edit_img" @click="deleteRes(element.name)"> </td>
                 <td>{{ element.name }}</td>
-                <td>{{element.uniinfo.longName}} ({{element.uniinfo.NameAffiche}})</td>
+                <td>{{element.uniinfo.NameAffiche}} - {{element.uniinfo.longName}} </td>
             </tr>
         </table>    
         

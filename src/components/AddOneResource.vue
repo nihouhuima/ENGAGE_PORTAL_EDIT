@@ -10,35 +10,35 @@
         <table class="edit_table">
 
             <tr class="edit_tr">
-                <td>Name</td>
+                <td valign="top">Name</td>
                 <td><el-input type="text" v-model="modifiedinfo.modified.name" required></el-input> <span  v-if="!this.uniquename" class="alert_name">Resource name exists</span></td>
             </tr>
             <tr class="edit_tr">
-                <td>University</td>
+                <td valign="top">University</td>
                 <td>
                     <div v-for="un in filter.university" :key="un.shortName">
                     <input  type="radio" :id="un.shortName" :value="un.shortName" v-model="modifiedinfo.modified.university" required>
-                    <label :for="un.shortName">{{un.longName}}</label>
+                    <label :for="un.shortName">{{ un.NameAffiche }} - {{un.longName}}</label>
                     </div>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>Description</td>
-                <td><el-input type="text" v-model="modifiedinfo.modified.description"></el-input></td>
+                <td valign="top">Description</td>
+                <td><el-input type="textarea" rows="3" v-model="modifiedinfo.modified.description"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td>URL</td>
+                <td valign="top">URL</td>
                 <td><el-input type="text" v-model="modifiedinfo.modified.url"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td>Type</td>
+                <td valign="top">Type</td>
                 <td><div v-for="ty in filter.type" :key="ty.Type_normalise">
                     <input name="type" type="checkbox" :value="ty.Type_normalise" v-model="modifiedinfo.modified.type"> {{ty.Type_normalise}}
                     </div>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>Access</td>
+                <td valign="top">Access</td>
                 <td>
                     <div v-for="ac in filter.access" :key="ac.Access">
                     <input  type="radio" :id="ac.Access" :value="ac.Access" v-model="modifiedinfo.modified.access">
@@ -47,7 +47,7 @@
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>Audience</td>
+                <td valign="top">Audience</td>
                 <td>
                     <div v-for="au in filter.audience" :key="au">
                     <input name="audience" type="checkbox" :value="au" v-model="modifiedinfo.modified.audience"> {{ au}}
@@ -55,25 +55,55 @@
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>Contact<el-button round @click="addcontact()">+</el-button></td>
-                <td><div v-for="(cont,index) in modifiedinfo.modified.contact" :key="index">
-                    <p>{{ index+1 }}<el-button round @click="removecontact(index)">x</el-button></p>
-                    Detail : <el-input type="text" v-model="modifiedinfo.modified.contact[index].detail"></el-input>
-                    Email : <el-input type="text" v-model="modifiedinfo.modified.contact[index].email"></el-input>
-                    URL : <el-input type="text" v-model="modifiedinfo.modified.contact[index].url"></el-input>
-                </div></td>
+                <td valign="top">Contact</td>
+                <td>
+                    <div class="resource_card" v-if="modifiedinfo.modified.contact.length>0">
+                        <div v-for="(cont,index) in modifiedinfo.modified.contact" :key="index">
+                        <table class="ChangeRe_table"> 
+                            <tr> 
+                                <td>
+                                    Detail : 
+                                </td>
+                                <td> 
+                                    <el-input type="text" v-model="modifiedinfo.modified.contact[index].detail"></el-input>
+                                </td>
+                                <td rowspan="3">
+                                    <p><el-button round @click="removecontact(index)">Delete</el-button></p>
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td>
+                                    Email : 
+                                </td>
+                                <td> 
+                                    <el-input type="text" v-model="modifiedinfo.modified.contact[index].email"></el-input>   
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td>
+                                    URL : 
+                                </td>
+                                <td> 
+                                    <el-input type="text" v-model="modifiedinfo.modified.contact[index].url"></el-input>   
+                                </td>
+                            </tr>
+                        </table>
+                    </div>    
+                </div>
+                <el-button round @click="addcontact()">Add</el-button>
+                </td>
             </tr>
             <tr class="edit_tr">
-                <td>Language</td>
+                <td valign="top">Language</td>
                 <td><p v-for="lang in langs" :key="lang">
-                    {{ lang }}<input name="type" type="checkbox" :value="lang" v-model="modifiedinfo.modified.language"> </p></td>
+                    <input name="type" type="checkbox" :value="lang" v-model="modifiedinfo.modified.language">{{ lang }} </p></td>
             </tr>
         </table> 
        <!-- {{ modifiedinfo.modified }} -->
          <!-- pop up for modify one keyword -->
          
-        <span slot="footer" class="dialog-footer">
-            <router-link :to="{name: 'EditResource'}"><el-button>cancel</el-button></router-link>
+        <span slot="footer" class="dialog-footer ">
+            <el-button @click="cancel()">cancel</el-button>
             <el-button type="primary" @click="addRes()">Confirm</el-button>
         </span>
     <!-- {{ this.$route.query.name }} -->
@@ -152,6 +182,11 @@ export default {
             })
             .catch((error)=>{
                 console.log(error)
+            });
+        },
+        cancel(){
+            this.$router.push({
+                name: "EditResource"
             });
         },
         getFilter(){
