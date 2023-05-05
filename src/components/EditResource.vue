@@ -51,22 +51,40 @@ export default {
             });
         },
         deleteRes(name){
-            const path = `${this.GLOBAL.BASE_URL}modifyresources`;
-            axios.post(path, {'oldname':name}, {headers:{"Content-Type" : "application/json"}})
-            .then((res) => {
-                // console.log(res.data);
-                if(res.data.delete){
-                    this.getdata();
-                    this.$notify({
-                            type:"success",
-                            message:"successfully deleted",
-                            duration: 1500
-                            })
-                }
-            })
-            .catch((error)=>{
-                console.log(error)
-            });
+            this.$confirm(`Do you delete "${name}"?`, "confirmation", {
+                iconClass : "el-icon-question",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+                showClose: true, // Whether or not to display the top right hand corner close button
+                type: "warning"
+                })
+                .then(()=>{ 
+                    const path = `${this.GLOBAL.BASE_URL}modifyresources`;
+                    axios.post(path, {'oldname':name}, {headers:{"Content-Type" : "application/json"}})
+                    .then((res) => {
+                        // console.log(res.data);
+                        if(res.data.delete){
+                            this.getdata();
+                            this.$notify({
+                                    type:"success",
+                                    message:"successfully deleted",
+                                    duration: 1500
+                                    })
+                        }
+                    })
+                    .catch((error)=>{
+                        console.log(error)
+                    });
+                }) 
+                .catch((error)=>{
+                    this.$notify.error({
+                                title: "failure",
+                                message: error,
+                                duration: 1500
+                            })    
+                    })
+
+            
         }
     },
     created(){
