@@ -36,26 +36,29 @@
                
                     
                     <div>
-                        <table><tr><td><p>Type: Single Terms</p></td>
+                        <table><tr><td><p>Single Term</p></td>
                         </tr>
                         </table>
-                        <p id="edit_espace"> Terms<span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
+                        <p id="edit_espace"> <span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
                         <el-input type="textarea" v-model="wordlist.single_words" rows="4" cols="120" class="add_topix_textarea">example</el-input>
                     </div>  
                     <br>
                     <div>
-                        <table><tr><td><p>Type: At least</p></td>
+                        <table>
+                            <tr><td><p>Multiple Terms</p></td>
+                        </tr>
+                            <tr><td><p>At least</p></td>
                         </tr>
                         </table>
-                        <p id="edit_espace"> Terms<span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
+                        <p id="edit_espace"> <span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
                         <el-input type="textarea" v-model="wordlist.at_least" rows="4" cols="120" class="add_topix_textarea"></el-input>
                     </div>  
                     <br>
                     <div>
-                        <table><tr><td><p>Type: Combined with</p></td>
+                        <table><tr><td><p>Combined with</p></td>
                         </tr>
                         </table>
-                        <p id="edit_espace"> Terms<span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
+                        <p id="edit_espace"> <span class="add_topic_notif">  (please separate the words by commas, e.g. "access to basic services, aporophobia")</span>:</p>
                         <el-input type="textarea" v-model="wordlist.combined_with" rows="4" cols="120" class="add_topix_textarea"></el-input>
                     </div>  
                     <!-- <img class="edit_delete_type" @click="deleteOne(index)" src="../assets/trash.svg" /> -->

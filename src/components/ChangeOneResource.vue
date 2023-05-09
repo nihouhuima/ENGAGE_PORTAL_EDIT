@@ -33,8 +33,17 @@
             </tr>
             <tr class="edit_tr">
                 <td valign="top">Type</td>
-                <td><div v-for="ty in filter.type" :key="ty.Type_normalise">
-                    <input name="type" type="checkbox" :value="ty.Type_normalise" v-model="modifiedinfo.modified.type"> {{ty.Type_normalise}}
+                <td>
+                    <div class="resource_card_container">
+                        <div v-for="ty in filter.type" :key="ty.Type_normalise" >
+                            <div v-if="ty.Type_normalise!='Other'" class="resource_card">
+                                <input  name="type" type="checkbox" :value="ty.Type_normalise" v-model="modifiedinfo.modified.type"> {{ty.Type_normalise}}
+                            </div>
+                        </div>
+
+                        <div class="resource_card">
+                            <input name="type" type="checkbox" value="Other" v-model="modifiedinfo.modified.type"> Other
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -50,16 +59,18 @@
             <tr class="edit_tr">
                 <td valign="top">Audience</td>
                 <td>
-                    <div v-for="au in filter.audience" :key="au">
-                    <input name="audience" type="checkbox" :value="au" v-model="modifiedinfo.modified.audience"> {{ au}}
+                    <div class="resource_card_container">
+                        <div v-for="au in filter.audience" :key="au" class="resource_card">
+                        <input name="audience" type="checkbox" :value="au" v-model="modifiedinfo.modified.audience"> {{ au}}
+                        </div>
                     </div>
                 </td>
             </tr>
             <tr class="edit_tr">
                 <td valign="top">Contact</td>
                 <td>
-                    <div class="resource_card" v-if="modifiedinfo.modified.contact.length>0">
-                        <div v-for="(cont,index) in modifiedinfo.modified.contact" :key="index">
+                    <div v-if="modifiedinfo.modified.contact.length>0">
+                        <div v-for="(cont,index) in modifiedinfo.modified.contact" :key="index" class="resource_card" >
                         <table class="ChangeRe_table"> 
                             <tr> 
                                 <td>
@@ -97,20 +108,23 @@
             <tr class="edit_tr">
                 <td valign="top">Language</td>
                 <td>
-                    <p v-for="lang in langs" :key="lang">
-                        <input name="type" type="checkbox" :value="lang" v-model="modifiedinfo.modified.language">
-                        {{ lang }} 
-                    </p>
-                    
+                    <div class="resource_card_container">
+                        <div v-for="lang in langs" :key="lang" class="resource_card">
+                            <input name="type" type="checkbox" :value="lang" v-model="modifiedinfo.modified.language">
+                            {{ lang }} 
+                        </div>
+                    </div>
                 </td>
             </tr>
         </table>
 
+        <div class="resource_buttons">
          
-        <span slot="footer" class="dialog-footer">
-            <el-button @click="cancel()">cancel</el-button>
-            <el-button type="primary" @click="changeRe()">confirm</el-button>
-        </span>
+            <span slot="footer" class="dialog-footer ">
+                <el-button @click="cancel()">cancel</el-button>
+                <el-button type="primary" @click="changeRe()">confirm</el-button>
+            </span>
+        </div>
         
 
   </div>
