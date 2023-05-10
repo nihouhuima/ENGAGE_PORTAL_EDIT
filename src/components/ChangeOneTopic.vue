@@ -15,6 +15,9 @@
             </div>
             <div v-for="(typew, key) in typeList" :key="key" class="changet_words_div">
             <!-- <div v-for="typew in readtypeword(lan)" :key="typew" class="changet_words_div"> -->
+                <div v-if="typew == 'At Least'" class="edit_content_container"> 
+                    <p class="change_topic_type">Multiple Terms</p>
+                </div>
                 <div class="edit_content_container"> 
                     <p class="change_topic_type">{{ typew }}</p>
                 </div>
