@@ -17,6 +17,11 @@
                 <td>{{ element.longName }}</td>
             </tr>
             <tr class="edit_tr">
+                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlhome')"></td>
+                <td>Homepage URL</td>
+                <td>{{ element.urlhome }}</td>
+            </tr>
+            <tr class="edit_tr">
                 <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOAI')"></td>
                 <td>OAI URL</td>
                 <td>{{ element.urlOAI }}</td>
@@ -134,9 +139,11 @@ export default {
             }else if(this.target=="longName"){
                 return "Full Name"
             }else if(this.target=="urlOAI"){
-                return "OAI URL"
+                return "OAI entre port URL"
             }else if(this.target == "urlOARepository"){
-                return "University URL"
+                return "University publication repository URL"
+            }else if(this.target == "urlhome"){
+                return "University Homepage URL"
             }else{
                 return ""
             }
