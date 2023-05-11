@@ -52,9 +52,10 @@ export default {
             })
         },
         routerto(){
+            var str = JSON.stringify(this.partners)
+            window.sessionStorage.setItem("element", str)
             this.$router.push({
-                name:"AddOnePartner",
-                query: this.topic
+                name:"AddOnePartner"
                 
             })
         },

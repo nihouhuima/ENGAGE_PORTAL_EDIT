@@ -72,6 +72,8 @@ import axios from 'axios';
 export default {
     data(){
         return{
+            partners:[],
+            shorts:[], // short names of all the partners
             dialogVisibleB: false,
             dialogImageUrl:"",
             fileList: [],
@@ -90,53 +92,55 @@ export default {
         handleRemove() {
             // console.log(file, fileList);
             this.showImg=!this.showImg;
-            this.postData="";
+            this.postData.set("file", ""); // file object 
+            this.postData.set("fileName", "");
+            this.postData.set("fileType", "")
         },
         handlePictureCardPreview(file) {
             this.dialogImageUrl = file.url;
             this.dialogVisibleB = true;
         },
         handleChange(file) {
-            this.postData = new window.FormData(); //create object -- form
-            this.postData.append("file", file["raw"]); // file object 
-            this.postData.append("fileName", file["name"]);
-            this.postData.append("fileType", file["raw"]["type"])
-            this.postData.append('shortName', this.newPartner.shortName)
-            this.postData.append('longName', this.newPartner.longName)
-            this.postData.append('urlOAI', this.newPartner.urlOAI)
-            this.postData.append('urlOARepository', this.newPartner.urlOARepository)
-            this.postData.append('urlhome', this.newPartner.urlhome)
-            // console.log(fileList)
-            // console.log(file)
+            this.postData.set("file", file["raw"]); // file object 
+            this.postData.set("fileName", file["name"]);
+            this.postData.set("fileType", file["raw"]["type"])
             this.showImg=!this.showImg;
         },
         addPartner(){
             // dialog for confirmation
-            // console.log(this.postData.get("shortName"));
-            this.postData.set("shortName", this.newPartner.shortName)
-            this.postData.set("longName", this.newPartner.longName)
-            this.postData.set("urlOAI", this.newPartner.urlOAI)
-            this.postData.set('urlOARepository', this.newPartner.urlOARepository)
-            this.postData.set('urlhome', this.newPartner.urlhome)
-            if(this.postData==""){
-                alert("Please fill in all information")
-            }
-            else{
-            this.$confirm(`Confirm your modification?`, "confirmation", {
-                iconClass : "el-icon-question",
-                confirmButtonText: "Yes",
-                cancelButtonText: "No",
-                showClose: true, // Whether or not to display the top right hand corner close button
-                type: "warning"
+            if(this.newPartner.shortName == "" || this.newPartner.longName == "" || this.newPartner.urlOAI == "" || this.newPartner.urlOARepository == "" || this.newPartner.urlhome == "" || this.postData.get("file")==""){
+                this.$notify.error({
+                            title: "failure",
+                            message: "Please fill in all information! ",
+                            duration: 1500
+                        })
+            }else if(this.shorts.indexOf(this.newPartner.shortName)!=-1){
+                this.$notify.error({
+                            title: "failure",
+                            message: "Short name exists already, please change another one! ",
+                            duration: 1500
+                        })
+            }else{
+                this.postData.set("shortName", this.newPartner.shortName)
+                this.postData.set("longName", this.newPartner.longName)
+                this.postData.set("urlOAI", this.newPartner.urlOAI)
+                this.postData.set('urlOARepository', this.newPartner.urlOARepository)
+                this.postData.set('urlhome', this.newPartner.urlhome)
+                this.$confirm(`Confirm your modification?`, "confirmation", {
+                    iconClass : "el-icon-question",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    showClose: true, // Whether or not to display the top right hand corner close button
+                    type: "warning"
+                    })
+                    .then(()=>{this.add()}) // to do : success ou failure based on return value
+                    .catch((error)=>{
+                        this.$notify.error({
+                                    title: "failure",
+                                    message: error,
+                                    duration: 1500
+                                })
                 })
-                .then(()=>{this.add()}) // to do : success ou failure based on return value
-                .catch((error)=>{
-                    this.$notify.error({
-                                title: "failure",
-                                message: error,
-                                duration: 1500
-                            })
-            })
             }
         },
         add(){
@@ -176,6 +180,22 @@ export default {
 
 
         }
+    },
+    created(){
+        this.partners  = JSON.parse(sessionStorage.getItem("element"))
+        this.partners.forEach(element => {
+            this.shorts.push(element['shortName'])
+        });
+        this.postData = new window.FormData(); //create object -- form
+        this.postData.append("file", ""); // file object 
+        this.postData.append("fileName", "");
+        this.postData.append("fileType", "")
+        this.postData.append('shortName', "")
+        this.postData.append('longName', "")
+        this.postData.append('urlOAI', "")
+        this.postData.append('urlOARepository', "")
+        this.postData.append('urlhome', "")
+
     }
     
 }
