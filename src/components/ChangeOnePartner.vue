@@ -19,7 +19,7 @@
             </tr>
             <tr class="edit_tr">
                 <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlhome')"></td> -->
-                <td>Homepage URL</td>
+                <td>University homepage URL</td>
                 <td>{{ element.urlhome }}<el-input type="text" v-model="modifiedpart.modified.urlhome"></el-input></td>
             </tr>
             <tr class="edit_tr">
@@ -28,8 +28,8 @@
                 <td>{{ element.urlOAI }}<el-input type="text" v-model="modifiedpart.modified.urlOAI"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOARepository')"></td> -->
-                <td>University URL</td>
+                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOARepository')"></td>
+                <td>Home University URL</td>
                 <td>{{ element.urlOARepository }}<el-input type="text" v-model="modifiedpart.modified.urlOARepository"></el-input></td>
             </tr>
             <tr class="edit_tr">
