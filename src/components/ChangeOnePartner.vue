@@ -7,56 +7,46 @@
         <table class="edit_table">
             <tr class="edit_tr"><td>Modify</td><td>Key</td><td>Value</td></tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('NameAffiche')"></td>
+                <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('NameAffiche')"></td> -->
                 <td>Short Name</td>
-                <td>{{ element.NameAffiche }}</td>
+                <td>{{ element.NameAffiche }}<el-input type="text" v-model="modifiedpart.modified.NameAffiche"></el-input></td>
             </tr>
+            
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('longName')"></td>
+                <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('longName')"></td> -->
                 <td>Full Name</td>
-                <td>{{ element.longName }}</td>
+                <td>{{ element.longName }}<el-input type="text" v-model="modifiedpart.modified.longName"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlhome')"></td>
+                <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlhome')"></td> -->
                 <td>Homepage URL</td>
-                <td>{{ element.urlhome }}</td>
+                <td>{{ element.urlhome }}<el-input type="text" v-model="modifiedpart.modified.urlhome"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOAI')"></td>
+                <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOAI')"></td> -->
                 <td>OAI URL</td>
-                <td>{{ element.urlOAI }}</td>
+                <td>{{ element.urlOAI }}<el-input type="text" v-model="modifiedpart.modified.urlOAI"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOARepository')"></td>
+                <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOARepository')"></td> -->
                 <td>University URL</td>
-                <td>{{ element.urlOARepository }}</td>
+                <td>{{ element.urlOARepository }}<el-input type="text" v-model="modifiedpart.modified.urlOARepository"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('img')"></td>
+                <!-- <td class="edit_img_center"></td> -->
                 <td>University Logo</td>
                 <td>
                     <div v-if="haveimg(element)">
-                    <img class="change_part_logo" :src="srcImg(element.img)"></div>
+                    <img class="change_part_logo" :src="srcImg(element.img)"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('img')"></div>
                     <div v-else>No img preview</div>
                     <!-- <img class="change_part_logo" src="../assets/2-L_UTC-AN_13_13_W.jpg"> -->
                 </td>
             </tr>
         </table>
-       
-         <!-- pop up for modify one keyword -->
-         <el-dialog
-        title="Modification"
-        :visible.sync="dialogVisible"
-        width="30%">
-            <p>Original {{showKey()}}: </p>
-            <p><b>{{ element[target] }}</b></p><br>
-            <p>New {{showKey()}}:  </p>
-            <el-input v-model="modifiedinfo.content"></el-input>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">Cancel</el-button>
-                <el-button type="primary" @click="modifyWord()">Confirm</el-button>
-            </span>
-        </el-dialog>
+        <span slot="footer" class="dialog-footer ">
+                <el-button @click="cancel()">cancel</el-button>
+                <el-button type="primary" @click="changepart()">confirm</el-button>
+        </span>
 
         <el-dialog
         title="Modification"
@@ -77,17 +67,18 @@
             :on-remove="handleRemove"
             :class="{hideUpload:!showImg}"
         >
+
             <i class="el-icon-plus"></i>
         </el-upload>
         <el-dialog v-model="dialogVisibleB">
             <img class="avatar" width="100%" :src="dialogImageUrl" alt="" />
         </el-dialog>
 
-            <span slot="footer" class="dialog-footer">
+            <!-- <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisibleImg = false">cancel</el-button>
-                <!-- <el-button type="primary" @click="transferImg()">confirm</el-button> -->
+                
                 <el-button type="primary" @click="handleClick()">confirm</el-button>
-            </span>
+            </span> -->
         </el-dialog>
 
     </div>
@@ -110,6 +101,11 @@ export default {
             dialogVisibleImg: false,
             newLogo:{ },
             showImg:true,
+            modifiedpart:{
+                modified:{
+                    NameAffiche:""
+                }
+            },
             modifiedinfo:{
                 partner: "",
                 tag:'',
@@ -165,11 +161,11 @@ export default {
             this.dialogVisibleB = true;
         },
         handleChange(file) {
-            this.fileParam = new window.FormData(); //create object -- form
-            this.fileParam.append("file", file["raw"]); // file object 
-            this.fileParam.append("fileName", file["name"]);
-            this.fileParam.append("fileType", file["raw"]["type"])
-            this.fileParam.append("partner", this.element.shortName);
+            // this.fileParam = new window.FormData(); //create object -- form
+            this.fileParam.set("file", file["raw"]); // file object 
+            // this.fileParam.set("fileName", file["name"]);
+            this.fileParam.set("fileType", file["raw"]["type"])
+            // this.fileParam.append("partner", this.element.shortName);
             // console.log(fileList)
             this.showImg=!this.showImg;
         },
@@ -281,11 +277,49 @@ export default {
             // eslint-disable-next-line
             console.error(error);
             });
+        },
+        changepart(){
+            // // updatePartner
+            // const path = `${this.GLOBAL.BASE_URL}updatePartner`;
+
+            // axios({
+            //     method: "post",
+            //     url: path,
+            //     data: this.fileParam,
+            //     headers: { "Content-Type": "multipart/form-data" },
+            //     })
+            //     .then((response) => {
+            //         // console.log(response);
+            //         if(response.data==true){
+            //             this.fileList = [];
+            //             this.getdata();
+            //             this.dialogVisibleImg = false;
+            //             this.showImg=true;
+            //         }
+                    
+            //     })
+            //     .catch((e) => {
+            //         this.$notify.error({
+            //                 title: "failure",
+            //                 message: e,
+            //                 duration: 1500
+            //             })
+            //     });
+            this.fileParam.set('NameAffiche',this.element.NameAffiche);
+            this.fileParam.set('longName',this.element.longName);
+            this.fileParam.set('urlOAI',this.element.urlOAI);
+            this.fileParam.set('urlhome',this.element.urlhome);
+            this.fileParam.set('urlOARepository',this.element.urlOARepository);
+
         }
     
     },
     created(){
         this.element  = JSON.parse(sessionStorage.getItem("element"))
+        // console.log(JSON.parse(sessionStorage.getItem("element")).NameAffiche);
+        this.modifiedpart.modified=this.element;
+        this.fileParam = new window.FormData();
+        this.fileParam.append("partner", this.element.shortName);
         // this.getdata();
     }
     
