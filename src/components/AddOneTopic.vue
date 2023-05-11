@@ -12,10 +12,13 @@
                     <td><p>*Short Name:</p></td><td><el-input v-model="wordlist.shortName" type="text" @change="nameexist(0)" required></el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
                 </tr>
                 <tr> 
-                    <td><p>*Full Name :</p></td><td><el-input v-model="wordlist.FullName" type="text" @change="nameexist(1)" required></el-input></td><td><p class="alert_name">{{ nameokf }}</p></td>
+                    <td><p>*topic Full Explanation :</p></td><td><el-input v-model="wordlist.FullName" type="text" @change="nameexist(1)" required></el-input></td><td><p class="alert_name">{{ nameokf }}</p></td>
                 </tr>
                 <tr> 
-                    <td><p>*Full Name :</p></td><td><el-input v-model="wordlist.FullName" type="text" @change="nameexist(1)" required></el-input></td><td><p class="alert_name">{{ nameokf }}</p></td>
+                    <td><p>topic short Explanation :</p></td><td><el-input v-model="wordlist.shortex" type="text"></el-input></td><td></td>
+                </tr>
+                <tr> 
+                    <td><p>URL :</p></td><td><el-input v-model="wordlist.url" type="text"></el-input></td><td></td>
                 </tr>
                 <tr><td><p>*Topic picture :</p></td><td>
                     <el-upload
@@ -120,10 +123,9 @@ export default {
             lang:"English",
             wordlist:{
                 shortName:"",
+                shortex:"",
                 FullName:"",
                 url:"",
-                pic:"",
-                pictype:"",
                 single_words:"",
                 at_least:"",
                 combined_with:""
@@ -173,13 +175,13 @@ export default {
         if(this.wordlist.shortName!=""){
                // console.log(this.emailcontent)
             const path = `${this.GLOBAL.BASE_URL}addtopic`
-            axios.post(path, this.wordlist, {headers:{"Content-Type" : "application/json"}})
+            axios.post(path, this.postData, {headers:{"Content-Type": "multipart/form-data"}})
             .then((res) => {
                 // console.log(res.data);
                 this.flag=res.data;
-                if(res.data!=false){
-                    console.log(res.data);   
-                }
+                // if(res.data!=false){
+                //     console.log(res.data);   
+                // }
             })
             .catch((error)=>{
                 console.log(error)
@@ -213,7 +215,18 @@ export default {
                 this.$message.error("short name exists") 
             }else if(fullfound==true){
                 this.$message.error("full name exists")
-            }else{
+            }else if(this.postData==""){
+                this.$message.error("Please fill in all necessary information")
+            }
+            else{
+            
+                this.postData.set("shortName", this.wordlist.shortName)
+                this.postData.set("shortex", this.wordlist.shortex)
+                this.postData.set("FullName", this.wordlist.FullName)
+                this.postData.set("url", this.wordlist.url)
+                this.postData.set("at_least", this.wordlist.at_least)
+                this.postData.set("single_words", this.wordlist.single_words)
+                this.postData.set("combined_with", this.wordlist.combined_with)
                 this.$confirm( "Do you confirm the submission of information?","Confirmation of addition", {
                 iconClass : "el-icon-question",
                 confirmButtonText: "Yes",
