@@ -146,12 +146,6 @@ export default {
             console.error(error);
             })
         },
-        refreshPage(){
-            setTimeout(function(){
-                        window.location.reload();
-                    }, 1500)
-            return true
-        },
         deletewords(word, lan, type){
             this.$confirm(`Do you want to delete the keyword "${word}"?`, "confirmation", {
                 iconClass : "el-icon-question",

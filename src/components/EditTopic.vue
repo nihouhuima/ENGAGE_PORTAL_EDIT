@@ -100,7 +100,7 @@ export default {
             }
         },
         choosedata(element){
-            console.log(element)
+            // console.log(element)
             var str = JSON.stringify(element);
             window.sessionStorage.setItem("element", str)
             this.$router.push({
@@ -125,12 +125,12 @@ export default {
                 })
         },
         delete(element){
-            console.log(element)
+            // console.log(element)
             //transfer the word to back-end and then delete it
             const path = `${this.GLOBAL.BASE_URL}deleteTopic/${element.topic}`
             axios.post(path)
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                     if(res.data==true || res.data=="true"){
                         this.getList()
                         this.$notify({

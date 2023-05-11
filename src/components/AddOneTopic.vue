@@ -14,6 +14,29 @@
                 <tr> 
                     <td><p>*Full Name :</p></td><td><el-input v-model="wordlist.FullName" type="text" @change="nameexist(1)" required></el-input></td><td><p class="alert_name">{{ nameokf }}</p></td>
                 </tr>
+                <tr> 
+                    <td><p>*Full Name :</p></td><td><el-input v-model="wordlist.FullName" type="text" @change="nameexist(1)" required></el-input></td><td><p class="alert_name">{{ nameokf }}</p></td>
+                </tr>
+                <tr><td><p>*Topic picture :</p></td><td>
+                    <el-upload
+                    v-model="fileList"
+                    ref="uploadref"
+                    action="#"
+                    :auto-upload="false"
+                    list-type="picture-card"
+                    :file-list="fileList"
+                    :limit="1"
+                    :on-change="handleChange"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    :class="{hideUpload:!showImg}"
+                >
+                    <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog v-model="dialogVisibleB">
+                    <img width="100%" :src="dialogImageUrl" alt="" />
+                </el-dialog></td>
+                </tr>
             </table>
         </div>
 
@@ -91,18 +114,26 @@ export default {
     data(){
         return{
             // topic_type:"",
+            dialogVisibleB: false,
+            dialogImageUrl:"",
+            fileList: [],
             lang:"English",
             wordlist:{
                 shortName:"",
                 FullName:"",
+                url:"",
+                pic:"",
+                pictype:"",
                 single_words:"",
                 at_least:"",
                 combined_with:""
             },
+            formData:"",
             flag: false,
             topic:[],
             nameoks:"",
-            nameokf:""
+            nameokf:"",
+            showImg:true
 
         }
     },
@@ -118,6 +149,25 @@ export default {
         //     this.keywords.splice(index, 1);
         //     this.TypesList();
         // },
+        handleRemove() {
+            // console.log(file, fileList);
+            this.showImg=!this.showImg;
+            this.postData="";
+        },
+        handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.url;
+            this.dialogVisibleB = true;
+        },
+        handleChange(file) {
+            this.postData = new window.FormData(); //create object -- form
+            this.postData.append("file", file["raw"]); // file object 
+            this.postData.append("fileName", file["name"]);
+            this.postData.append("fileType", file["raw"]["type"])
+            
+            // console.log(fileList)
+            // console.log(file)
+            this.showImg=!this.showImg;
+        },
        confirm(){
 
         if(this.wordlist.shortName!=""){

@@ -19,13 +19,19 @@
                 </td>
             </tr>
             <tr class="edit_tr">
+                <td>University homepage URL</td>
+                <td>
+                    <el-input v-model="newPartner.urlhome"></el-input>
+                </td>
+            </tr>
+            <tr class="edit_tr">
                 <td>OAI URL</td>
                 <td>
                     <el-input v-model="newPartner.urlOAI"></el-input>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>University URL</td>
+                <td>University publication repository URL</td>
                 <td>
                     <el-input v-model="newPartner.urlOARepository"></el-input>
                 </td>
@@ -62,6 +68,7 @@
 </template>
 <script>
 import axios from 'axios';
+
 export default {
     data(){
         return{
@@ -74,6 +81,7 @@ export default {
                 longName:"",
                 urlOAI:"",
                 urlOARepository:"",
+                urlhome:""
             },
             postData:""
         }
@@ -82,6 +90,7 @@ export default {
         handleRemove() {
             // console.log(file, fileList);
             this.showImg=!this.showImg;
+            this.postData="";
         },
         handlePictureCardPreview(file) {
             this.dialogImageUrl = file.url;
@@ -96,12 +105,23 @@ export default {
             this.postData.append('longName', this.newPartner.longName)
             this.postData.append('urlOAI', this.newPartner.urlOAI)
             this.postData.append('urlOARepository', this.newPartner.urlOARepository)
+            this.postData.append('urlhome', this.newPartner.urlhome)
             // console.log(fileList)
             // console.log(file)
             this.showImg=!this.showImg;
         },
         addPartner(){
             // dialog for confirmation
+            // console.log(this.postData.get("shortName"));
+            this.postData.set("shortName", this.newPartner.shortName)
+            this.postData.set("longName", this.newPartner.longName)
+            this.postData.set("urlOAI", this.newPartner.urlOAI)
+            this.postData.set('urlOARepository', this.newPartner.urlOARepository)
+            this.postData.set('urlhome', this.newPartner.urlhome)
+            if(this.postData==""){
+                alert("Please fill in all information")
+            }
+            else{
             this.$confirm(`Confirm your modification?`, "confirmation", {
                 iconClass : "el-icon-question",
                 confirmButtonText: "Yes",
@@ -117,7 +137,7 @@ export default {
                                 duration: 1500
                             })
             })
-
+            }
         },
         add(){
             const path = `${this.GLOBAL.BASE_URL}addPartner`
