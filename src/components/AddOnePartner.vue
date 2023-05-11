@@ -113,15 +113,16 @@ export default {
         addPartner(){
             // dialog for confirmation
             // console.log(this.postData.get("shortName"));
+            
+            if(this.postData==""){
+                alert("Please fill in all information")
+            }
+            else{
             this.postData.set("shortName", this.newPartner.shortName)
             this.postData.set("longName", this.newPartner.longName)
             this.postData.set("urlOAI", this.newPartner.urlOAI)
             this.postData.set('urlOARepository', this.newPartner.urlOARepository)
             this.postData.set('urlhome', this.newPartner.urlhome)
-            if(this.postData==""){
-                alert("Please fill in all information")
-            }
-            else{
             this.$confirm(`Confirm your modification?`, "confirmation", {
                 iconClass : "el-icon-question",
                 confirmButtonText: "Yes",

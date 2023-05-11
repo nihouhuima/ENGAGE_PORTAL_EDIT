@@ -5,7 +5,56 @@
             <router-link :to="{name: 'EditTopic'}"><img id="edit_return" src="../assets/return.png" alt="Return"/></router-link>
             <p class="changetopic_title"> Modify information for the topic: {{this.topic }} ({{ this.fullTopic }})</p>
         </div>
+        <table id="edit_add_topic_table"> 
+                <tr> 
+                    <td><p>*Short Name:</p></td><td><el-input v-model="wordlist.shortName" type="text" @change="nameexist(0)" required></el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
+                </tr>
+                <tr> 
+                    <td><p>*topic Full Explanation :</p></td><td><el-input v-model="wordlist.FullName" type="text" @change="nameexist(1)" required></el-input></td><td><p class="alert_name">{{ nameokf }}</p></td>
+                </tr>
+                <tr> 
+                    <td><p>topic short Explanation :</p></td><td><el-input v-model="wordlist.shortex" type="text"></el-input></td><td></td>
+                </tr>
+                <tr> 
+                    <td><p>URL :</p></td><td><el-input v-model="wordlist.url" type="text"></el-input></td><td></td>
+                </tr>
+                <tr><td><p>*Topic picture :</p></td>
+                    <td>
+                        <img class="change_part_logo" :src="srcImg(element.img)">
+                    <el-dialog
+                    title="Modification"
+                    :visible.sync="dialogVisibleImg"
+                    width="30%">
+                    <p>Please choose the photo: </p>
 
+                    <el-upload
+                        v-model="fileList"
+                        ref="uploadref"
+                        action="#"
+                        :auto-upload="false"
+                        list-type="picture-card"
+                        :file-list="fileList"
+                        :limit="1"
+                        :on-change="handleChange"
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemove"
+                        :class="{hideUpload:!showImg}"
+                    >
+                        <i class="el-icon-plus"></i>
+                    </el-upload>
+                    <el-dialog v-model="dialogVisibleB">
+                        <img class="avatar" width="100%" :src="dialogImageUrl" alt="" />
+                    </el-dialog>
+
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisibleImg = false">cancel</el-button>
+                <!-- <el-button type="primary" @click="transferImg()">confirm</el-button> -->
+                <el-button type="primary" @click="handleClick()">confirm</el-button>
+            </span>
+        </el-dialog>
+    </td>
+                </tr>
+        </table>
         <div v-for="(lan, index) in terms" :key="index">
 
             <div class="edit_content_container"> 
@@ -81,6 +130,7 @@ export default {
             selected:'',
             terms:{},
             wordlist:[],
+            dialogVisibleImg: false,
             dialogVisible:false,
             dialogVisibleAdd:false,
             dialogVisibleType: false,
