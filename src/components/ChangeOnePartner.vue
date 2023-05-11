@@ -29,7 +29,7 @@
             </tr>
             <tr class="edit_tr">
                 <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOARepository')"></td>
-                <td>Home University URL</td>
+                <td>Home University publication repository URL</td>
                 <td>{{ element.urlOARepository }}<el-input type="text" v-model="modifiedpart.modified.urlOARepository"></el-input></td>
             </tr>
             <tr class="edit_tr">
