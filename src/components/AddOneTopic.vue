@@ -12,7 +12,7 @@
                     <td><p>*Short Name:</p></td><td><el-input v-model="wordlist.shortName" type="text" @change="nameexist(0)" required></el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
                 </tr>
                 <tr> 
-                    <td><p>*topic Full Explanation :</p></td><td><el-input v-model="wordlist.FullName" type="text" @change="nameexist(1)" required></el-input></td><td><p class="alert_name">{{ nameokf }}</p></td>
+                    <td><p>topic Full Explanation :</p></td><td><el-input v-model="wordlist.FullName" type="text"></el-input></td><td><p class="alert_name"></p></td>
                 </tr>
                 <tr> 
                     <td><p>topic short Explanation :</p></td><td><el-input v-model="wordlist.shortex" type="text"></el-input></td><td></td>
@@ -134,7 +134,6 @@ export default {
             flag: false,
             topic:[],
             nameoks:"",
-            nameokf:"",
             showImg:true
 
         }

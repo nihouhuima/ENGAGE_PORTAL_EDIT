@@ -3,29 +3,24 @@
 
         <div class="changet_top">
             <router-link :to="{name: 'EditTopic'}"><img id="edit_return" src="../assets/return.png" alt="Return"/></router-link>
-            <p class="changetopic_title"> Modify information for the topic: {{this.topic }} ({{ this.fullTopic }})</p>
+            <p class="changetopic_title"> Modify information for the topic: {{this.element.topic }} ({{ this.element.fullTopic }})</p>
         </div>
         <table id="edit_add_topic_table"> 
                 <tr> 
-                    <td><p>*Short Name:</p></td><td><el-input v-model="wordlist.shortName" type="text" @change="nameexist(0)" required></el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
+                    <td><p>*Short Name:</p></td><td><el-input v-model="element.topic" type="text" @change="nameexist(0)" required>{{ element.topic }}</el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
                 </tr>
                 <tr> 
-                    <td><p>*topic Full Explanation :</p></td><td><el-input v-model="wordlist.FullName" type="text" @change="nameexist(1)" required></el-input></td><td><p class="alert_name">{{ nameokf }}</p></td>
+                    <td><p>topic Full Explanation :</p></td><td><el-input v-model="element.topicFullName" type="text"> {{ element.topicFullName }}</el-input></td><td><p class="alert_name"></p></td>
                 </tr>
                 <tr> 
-                    <td><p>topic short Explanation :</p></td><td><el-input v-model="wordlist.shortex" type="text"></el-input></td><td></td>
+                    <td><p>topic short Explanation :</p></td><td><el-input v-model="element.topicshortname" type="text">{{ element.topicshortname }}</el-input></td><td></td>
                 </tr>
                 <tr> 
-                    <td><p>URL :</p></td><td><el-input v-model="wordlist.url" type="text"></el-input></td><td></td>
+                    <td><p>URL :</p></td><td><el-input v-model="element.url" type="text">{{ element.url }}</el-input></td><td></td>
                 </tr>
                 <tr><td><p>*Topic picture :</p></td>
                     <td>
-                        <img class="change_part_logo" :src="srcImg(element.img)">
-                    <el-dialog
-                    title="Modification"
-                    :visible.sync="dialogVisibleImg"
-                    width="30%">
-                    <p>Please choose the photo: </p>
+                        <!-- <img class="change_part_logo" :src="srcImg()"> -->
 
                     <el-upload
                         v-model="fileList"
@@ -42,20 +37,18 @@
                     >
                         <i class="el-icon-plus"></i>
                     </el-upload>
-                    <el-dialog v-model="dialogVisibleB">
+                    <el-dialog :visible.sync="dialogVisibleB">
                         <img class="avatar" width="100%" :src="dialogImageUrl" alt="" />
                     </el-dialog>
 
-            <span slot="footer" class="dialog-footer">
+            <!-- <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisibleImg = false">cancel</el-button>
-                <!-- <el-button type="primary" @click="transferImg()">confirm</el-button> -->
                 <el-button type="primary" @click="handleClick()">confirm</el-button>
-            </span>
-        </el-dialog>
-    </td>
+            </span> -->
+                </td>
                 </tr>
         </table>
-        <div v-for="(lan, index) in terms" :key="index">
+        <div v-for="(lan, index) in element.terms" :key="index">
 
             <div class="edit_content_container"> 
                 <div class="edit_menu_text"> 
@@ -72,7 +65,7 @@
                 </div>
                  
                 <div class="changet_words">
-                    <div v-for="word in returnWords(key, lan)" :key="word" class="changet_each_word">
+                    <div v-for="(word) in returnWords(key, lan)" :key="word" class="changet_each_word">
                     <!-- <div v-for="word in lan[typew]" :key="word" class="changet_each_word"> -->
                         <div><p class="changet_word_it" @click="selectWord(word, lan.language, key, lan[key])">{{ word }}</p> </div>
                         <img src="../assets/croix1.png" alt="delete" @click="deletewords(word, lan.language, key)" class="changet_img">
@@ -86,39 +79,16 @@
             
         </div>
 
+        <!-- bloc for add another language -->
         <div class="edit_content_container"> 
             <div class="edit_menu_text"> 
                 <!-- <p class="changet_subtitle changet_addlan" @click="addLan()">Add another language<b> + </b></p>  -->
             </div>  
         </div>
 
-        <!-- pop up for modify one keyword -->
-        <el-dialog
-        title="Modification"
-        :visible.sync="dialogVisible"
-        width="30%">
-            <p>Original keyword: </p>
-            <p><b>{{ modif.changed }}</b></p><br>
-            <p>new keyword:  </p>
-            <el-input v-model="modif.newWord"></el-input>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">cancel</el-button>
-                <el-button type="primary" @click="modifyWord()">confirm</el-button>
-            </span>
-        </el-dialog>
+        
 
-        <!-- pop up for add one keyword -->
-        <el-dialog
-        title="Modification"
-        :visible.sync="dialogVisibleAdd"
-        width="30%">
-            <p>Please write down one keyword you want to add:  </p>
-            <el-input v-model="modif.newWord"></el-input>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisibleAdd = false">cancel</el-button>
-                <el-button type="primary" @click="addWord()">confirm</el-button>
-            </span>
-        </el-dialog>
+        
 
     </div>
 </template>
@@ -127,29 +97,14 @@ import axios from 'axios';
 export default {
     data(){
         return{
-            selected:'',
-            terms:{},
-            wordlist:[],
-            dialogVisibleImg: false,
-            dialogVisible:false,
-            dialogVisibleAdd:false,
-            dialogVisibleType: false,
-            flag: false,
-            topic:"",
-            fullTopic:"",
-            modif:{
-                lanTarget:"",
-                type:"",
-                changed:"", //word replaced
-                newWord:"", //word to change
-                wordlist:[]
-            },
-            newType:{
-                lanTarget:"",
-                type:"",
-                listType:[]
-            },
-            // typeList:["singleWord","atLeast","combinedWith"],
+            element:{},
+            nameoks:"",
+            showImg:false,
+            fileList: [{url:''}],
+            dialogVisibleB: false,
+            dialogImageUrl:"",
+            formData:"",
+
             typeList:
                 {singleWord: "Single Term",
                  atLeast: "At Least",
@@ -166,18 +121,6 @@ export default {
             }else{
                 return null
             }
-        },
-        addtypeword(lan){
-            var list=Object.keys(lan)
-            console.log(list)
-            var typeword=[]
-            const list1 = ["atLeast", "singleWord", "combinedWith"]
-            for(var i=0; i<list1.length;i++){
-                if (list.indexOf(list1[i])==-1){
-                    typeword.push(list1[i])
-                }
-            }
-            return typeword
         },
         refreshData(){ //refresh the data on this page
             const path = `${this.GLOBAL.BASE_URL}keywords`;
@@ -389,28 +332,71 @@ export default {
                 }
             }
             return false
-    }
+        },
+        nameexist(){
+            var find=false  
+            for(var i=0; i<this.topic.length; i++){
+                if( this.topic[i]["topic"]==this.wordlist.shortName){
+                this.nameoks = "The topic name already exists"
+                find = true
+                }
+            }
+            if(find==false){
+                        this.nameoks = ""}
+        },
+        srcImg(){
+            //function for create src of logo
+            //data:image/png;base64,{code base64 of image}
+            //data:image/jpeg;base64,{code base64 of image}
+            //data:image/x-icon;base64,{code base64 of image}
+            return "data:"+this.element.pictype+";base64,"+this.element.pic
+        },
+        handleRemove(file, fileList) {
+            // console.log(file, fileList);
+            // this.showImg=!this.showImg;
+            console.log(file)
+            this.showImg = fileList.length <1
+            this.postData.set('changePic', true)
+            this.postData.set("file", ""); // file object 
+            this.postData.set("fileName", "");
+            this.postData.set("fileType", "")
+        },
+        handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.url;
+            this.dialogVisibleB = true;
+        },
+        handleChange(file, fileList) {
+            this.postData.set('changePic', true)
+            this.postData.set("file", file["raw"]); // file object 
+            this.postData.set("fileName", file["name"]);
+            this.postData.set("fileType", file["raw"]["type"])
+            
+            // console.log(this.fileList)
+            // console.log(file)
+
+            // this.showImg=!this.showImg;
+            this.showImg = fileList.length <1
+
+        },
 
     },
     created(){
-        this.terms = JSON.parse(sessionStorage.getItem("element")).terms
-        this.topic = JSON.parse(sessionStorage.getItem("element")).topic
-        this.fullTopic = JSON.parse(sessionStorage.getItem("element")).topicFullName
-        // console.log(Object.entries(this.typeList)) 
+        this.element = JSON.parse(sessionStorage.getItem("element"))
+        // prepare data structure
+        this.postData = new window.FormData(); //create object -- form
+        this.postData.append('topic', this.element.topic)
+        this.postData.append('topicFullName', this.element.topicFullName)
+        this.postData.append('topicshortname', this.element.topicshortname)
+        this.postData.append('terms', this.element.terms)
+        this.postData.append('changePic', false)
+        this.postData.append('url', this.element.url)
+        this.fileList[0].url = this.srcImg();
+
+        console.log(this.element)
+
     },
     watch:{
-        dialogVisible: {
-            immediate:true,
-            handler(){
-                this.modif.newWord=""
-            }
-        },
-        dialogVisibleAdd: {
-            immediate:true,
-            handler(){
-                this.modif.newWord=""
-            }
-        }
+        
     }
     
 }

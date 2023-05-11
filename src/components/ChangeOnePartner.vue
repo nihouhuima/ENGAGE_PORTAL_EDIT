@@ -18,7 +18,7 @@
             </tr>
             <tr class="edit_tr">
                 <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlhome')"></td>
-                <td>Homepage URL</td>
+                <td>University homepage URL</td>
                 <td>{{ element.urlhome }}</td>
             </tr>
             <tr class="edit_tr">
@@ -28,7 +28,7 @@
             </tr>
             <tr class="edit_tr">
                 <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOARepository')"></td>
-                <td>University URL</td>
+                <td>University publication repository URL</td>
                 <td>{{ element.urlOARepository }}</td>
             </tr>
             <tr class="edit_tr">
