@@ -291,7 +291,7 @@ export default {
         },
         handleRemove() {
             this.showImg = !this.showImg
-            console.log(this.showImg)
+            // console.log(this.showImg)
             this.postData.set('changePic', true)
             this.postData.set("file", ""); // file object 
             // this.postData.set("fileName", "");
@@ -307,7 +307,7 @@ export default {
                 this.postData.set("file", file["raw"]); // file object 
                 this.postData.set("fileType", file["raw"]["type"])
                 this.showImg = !this.showImg
-                console.log(this.showImg)
+                // console.log(this.showImg)
             }
             else{
                 this.$message.error("Size limit of your image : 2mb");
