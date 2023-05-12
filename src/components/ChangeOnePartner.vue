@@ -94,6 +94,7 @@ export default {
             dialogVisible:false,
             element:{ 
             },
+            shortNameList:[],
             dialogVisibleImg: false,
             newLogo:{ },
             showImg:false,
@@ -206,20 +207,29 @@ export default {
             //data:image/x-icon;base64,{code base64 of image}
             return "data:"+img.type+";base64,"+img.code
         },
-        getdata(){
+        getdata(partner){
             const path = `${this.GLOBAL.BASE_URL}/partnerinfo`;
             axios.get(path)
             .then((res) => {
                 
                 // console.log("element"+this.element.shortName);
                 for (var i=0; i<res.data.length; i++) {
-                    if (res.data[i]['shortName'] ==this.element['shortName']) {
+                    if (res.data[i]['shortName'] ==partner.partner) {
                         // console.log(res.data[i]['shortname']);
                         this.element = res.data[i];
+                    }else{
+                        this.shortNameList.push(res.data[i].shortName)
                     }
                 }
                 
                 
+            })
+            .then(()=>{
+                this.modifiedpart.modified=this.element;
+                this.fileParam = new window.FormData();
+                this.fileParam.append("shortName", this.element.shortName);
+                this.fileList[0]['url'] = this.srcImg(this.element.img);
+                this.fileParam.set("iffile",false);
             })
             .catch((error) => {
             // eslint-disable-next-line
@@ -281,15 +291,8 @@ export default {
     
     },
     created(){
-        this.element  = JSON.parse(sessionStorage.getItem("element"))
-        // console.log(JSON.parse(sessionStorage.getItem("element")).NameAffiche);
-        this.modifiedpart.modified=this.element;
-        this.fileParam = new window.FormData();
-        this.fileParam.append("shortName", this.element.shortName);
-        this.fileList[0]['url'] = this.srcImg(this.element.img);
-        this.fileParam.set("iffile",false);
-        // console.log(this.fileList)
-        // this.getdata();
+        this.getdata(this.$route.query)
+        // this.element  = JSON.parse(sessionStorage.getItem("element"))
     }
     
 }

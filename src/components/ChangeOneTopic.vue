@@ -335,10 +335,16 @@ export default {
                             message: "Please choose a photo! ",
                             duration: 1500
                         })
-            }else if(this.constrainteTerms()){
+            }else if(this.constrainteTerms()==1){
                 this.$notify.error({
                             title: "failure",
-                            message: '"At Least" and "Combined with" should be filled in',
+                            message: "You should have at least one word in \"At least\" if \"Combined with\" is not Empty",
+                            duration: 1500
+                        })
+            }else if(this.constrainteTerms()==2){
+                this.$notify.error({
+                            title: "failure",
+                            message: "You should have at least one word in \"Combined with\" if \"At least\" is not Empty",
                             duration: 1500
                         })
             }
@@ -423,12 +429,12 @@ export default {
         constrainteTerms(){
             for(var i =0 ; i<this.element.terms.length; i++){
                 if(this.element.terms[i]["atLeast"].length == 0 && this.element.terms[i]["combinedWith"].length != 0){
-                    return true
+                    return 1
                 }else if (this.element.terms[i]["atLeast"].length != 0 && this.element.terms[i]["combinedWith"].length == 0){
-                    return true
+                    return 2
                 }
             }
-            return false
+            return 3
             
         }
 

@@ -45,10 +45,11 @@ export default {
         },
         choosedata(element){
             // console.log(element)
-            var str = JSON.stringify(element)
-            window.sessionStorage.setItem("element", str)
+            // var str = JSON.stringify(element)
+            // window.sessionStorage.setItem("element", str)
             this.$router.push({
-                name:"ChangeOnePartner"
+                name:"ChangeOnePartner",
+                query: {partner: element.shortName}
             })
         },
         routerto(){
