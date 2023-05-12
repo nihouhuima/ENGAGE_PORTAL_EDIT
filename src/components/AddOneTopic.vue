@@ -216,6 +216,10 @@ export default {
                 this.$message.error("full name exists")
             }else if(this.postData==""){
                 this.$message.error("Please fill in all necessary information")
+            }else if(this.wordlist.combined_with==""&&this.wordlist.at_least!=""){
+                this.$message.error("You should have at least one word in \"At least\" if \"Combined with\" is not Empty")
+            }else if(this.wordlist.combined_with!=""&&this.wordlist.at_least==""){
+                this.$message.error("You should have at least one word in \"Combined with\" if \"At least\" is not Empty")
             }
             else{
             
@@ -249,6 +253,8 @@ export default {
                             at_least:"",
                             combined_with:""
                         };
+                        this.fileList=[];
+                        this.showImg=true;
                         this.dialogImageUrl="";
                         this.$router.push({
                         name:"Edit"});
