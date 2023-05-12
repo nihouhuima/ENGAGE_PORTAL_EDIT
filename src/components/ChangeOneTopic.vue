@@ -291,7 +291,6 @@ export default {
         },
         handleRemove() {
             this.showImg = !this.showImg
-            console.log(this.showImg)
             this.postData.set('changePic', true)
             this.postData.set("file", ""); // file object 
             // this.postData.set("fileName", "");
@@ -307,7 +306,6 @@ export default {
                 this.postData.set("file", file["raw"]); // file object 
                 this.postData.set("fileType", file["raw"]["type"])
                 this.showImg = !this.showImg
-                console.log(this.showImg)
             }
             else{
                 this.$message.error("Size limit of your image : 2mb");
@@ -335,6 +333,12 @@ export default {
                 this.$notify.error({
                             title: "failure",
                             message: "Please choose a photo! ",
+                            duration: 1500
+                        })
+            }else if(this.constrainteTerms()){
+                this.$notify.error({
+                            title: "failure",
+                            message: '"At Least" and "Combined with" should be filled in',
                             duration: 1500
                         })
             }
@@ -415,6 +419,17 @@ export default {
             .catch((error) => {
             console.error(error);
             })
+        },
+        constrainteTerms(){
+            for(var i =0 ; i<this.element.terms.length; i++){
+                if(this.element.terms[i]["atLeast"].length == 0 && this.element.terms[i]["combinedWith"].length != 0){
+                    return true
+                }else if (this.element.terms[i]["atLeast"].length != 0 && this.element.terms[i]["combinedWith"].length == 0){
+                    return true
+                }
+            }
+            return false
+            
         }
 
     },
