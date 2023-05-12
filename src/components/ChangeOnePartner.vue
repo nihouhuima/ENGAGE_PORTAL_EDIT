@@ -160,14 +160,20 @@ export default {
             this.dialogVisibleB = true;
         },
         handleChange(file) {
-            this.fileParam.set("iffile",true);
-            // this.fileParam = new window.FormData(); //create object -- form
-            this.fileParam.set("file", file["raw"]); // file object 
-            // this.fileParam.set("fileName", file["name"]);
-            this.fileParam.set("fileType", file["raw"]["type"])
-            // this.fileParam.append("partner", this.element.shortName);
-            // console.log(fileList)
-            this.showImg=!this.showImg;
+            if(file.size<2000000){
+                this.fileParam.set("iffile",true);
+                // this.fileParam = new window.FormData(); //create object -- form
+                this.fileParam.set("file", file["raw"]); // file object 
+                // this.fileParam.set("fileName", file["name"]);
+                this.fileParam.set("fileType", file["raw"]["type"])
+                // this.fileParam.append("partner", this.element.shortName);
+                // console.log(fileList)
+                this.showImg=!this.showImg; 
+            }
+            else{
+                this.$message.error("Size limit of your image : 2mb");
+            }
+            
         },
         modifyWord(){
             if(this.modifiedinfo.content==""){
@@ -281,6 +287,7 @@ export default {
         this.fileParam = new window.FormData();
         this.fileParam.append("shortName", this.element.shortName);
         this.fileList[0]['url'] = this.srcImg(this.element.img);
+        this.fileParam.set("iffile",false);
         // console.log(this.fileList)
         // this.getdata();
     }

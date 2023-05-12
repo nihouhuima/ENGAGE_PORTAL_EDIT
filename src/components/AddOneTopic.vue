@@ -240,6 +240,16 @@ export default {
                             message:"successfully added",
                             duration: 1500
                             })
+                        this.wordlist={
+                            shortName:"",
+                            shortex:"",
+                            FullName:"",
+                            url:"",
+                            single_words:"",
+                            at_least:"",
+                            combined_with:""
+                        };
+                        this.dialogImageUrl="";
                         this.$router.push({
                         name:"Edit"});
                     }else{
