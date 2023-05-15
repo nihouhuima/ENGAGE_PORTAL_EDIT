@@ -14,18 +14,18 @@
 
         <table id="edit_add_topic_table"> 
                 <tr> 
-                    <td><p>*Short Name :</p></td><td><el-input v-model="element.topic" type="text" @change="nameexist(0)" required>{{ element.topic }}</el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
+                    <td valign="top" style="width: 11em"><p>Short Name*:</p></td><td style="width: 30em"><el-input v-model="element.topic" type="text" @change="nameexist(0)" required>{{ element.topic }}</el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
                 </tr>
                 <tr> 
-                    <td><p>topic short Explanation :</p></td><td><el-input v-model="element.topicshortname" type="text">{{ element.topicshortname }}</el-input></td><td></td>
+                    <td valign="top"><p>Topic Short Explanation:</p></td><td><el-input v-model="element.topicshortname" type="text">{{ element.topicshortname }}</el-input></td><td></td>
                 </tr>
                 <tr> 
-                    <td><p>topic Full Explanation :</p></td><td><el-input v-model="element.topicFullName" type="text"> {{ element.topicFullName }}</el-input></td><td><p class="alert_name"></p></td>
+                    <td valign="top"><p>Topic Full Explanation:</p></td><td><el-input v-model="element.topicFullName" type="textarea" rows="3"> {{ element.topicFullName }}</el-input></td><td><p class="alert_name"></p></td>
                 </tr>
                 <tr> 
-                    <td><p>URL :</p></td><td><el-input v-model="element.url" type="text">{{ element.url }}</el-input></td><td></td>
+                    <td valign="top"><p>URL:</p></td><td><el-input v-model="element.url" type="text">{{ element.url }}</el-input></td><td></td>
                 </tr>
-                <tr><td><p>*Topic picture :</p></td>
+                <tr><td valign="top"><p>Topic picture*:</p></td>
                     <td>
                         <el-upload
                             v-model="fileList"

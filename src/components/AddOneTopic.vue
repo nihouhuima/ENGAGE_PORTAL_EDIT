@@ -8,20 +8,20 @@
                 <p class="edit_title"><b>Engage Topic</b> </p>
             </div>
             <table id="edit_add_topic_table"> 
-                <tr> 
-                    <td><p>*Short Name:</p></td><td><el-input v-model="wordlist.shortName" type="text" @change="nameexist(0)" required></el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
+                <tr class="edit_tr"> 
+                    <td valign="top" style="width: 11em"><p>Short Name*:</p></td><td style="width: 30em"><el-input v-model="wordlist.shortName" type="text" @change="nameexist(0)" required></el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
                 </tr>
                 <tr> 
-                    <td><p>Topic Short Explanation :</p></td><td><el-input v-model="wordlist.shortex" type="text"></el-input></td><td><span class="add_topic_notif">(For example: NO POVERTY)</span></td>
+                    <td valign="top"><p>Topic Short Explanation:</p></td><td><el-input v-model="wordlist.shortex" type="text"></el-input></td><td><span class="add_topic_notif">(For example: NO POVERTY)</span></td>
                 </tr>
                 <tr> 
-                    <td><p>Topic Full Explanation :</p></td><td><el-input v-model="wordlist.FullName" type="text"></el-input></td><td><span class="add_topic_notif">(For example: End poverty in all its forms everywhere)</span></td>
+                    <td valign="top"><p>Topic Full Explanation:</p></td><td><el-input v-model="wordlist.FullName" type="textarea" rows="3"></el-input></td><td><span class="add_topic_notif">(For example: End poverty in all its forms everywhere)</span></td>
                 </tr>
                 
                 <tr> 
-                    <td><p>URL :</p></td><td><el-input v-model="wordlist.url" type="text"></el-input></td><td></td>
+                    <td valign="top"><p>URL:</p></td><td><el-input v-model="wordlist.url" type="text"></el-input></td><td></td>
                 </tr>
-                <tr><td><p>*Topic picture :</p></td><td>
+                <tr class="edit_tr"><td valign="top"><p>Topic picture*:</p></td><td>
                     <el-upload
                     v-model="fileList"
                     ref="uploadref"

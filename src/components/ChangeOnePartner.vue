@@ -8,32 +8,32 @@
             <tr class="edit_tr"><td>Modify</td><td>Value</td></tr>
             <tr class="edit_tr">
                 <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('NameAffiche')"></td> -->
-                <td>Short Name</td>
-                <td><el-input type="text" v-model="modifiedpart.modified.NameAffiche"></el-input></td>
+                <td>Short Name*:</td>
+                <td style="width: 30em"><el-input type="text" v-model="modifiedpart.modified.NameAffiche"></el-input></td>
             </tr>
             
             <tr class="edit_tr">
                 <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('longName')"></td> -->
-                <td>Full Name</td>
+                <td>Full Name*:</td>
                 <td><el-input type="text" v-model="modifiedpart.modified.longName"></el-input></td>
             </tr>
             <tr class="edit_tr">
                 <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlhome')"></td> -->
-                <td>University homepage URL</td>
+                <td>University homepage URL*:</td>
                 <td><el-input type="text" v-model="modifiedpart.modified.urlhome"></el-input></td>
             </tr>
             <tr class="edit_tr">
                 <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('urlOAI')"></td> -->
-                <td>OAI URL</td>
+                <td>OAI URL*:</td>
                 <td><el-input type="text" v-model="modifiedpart.modified.urlOAI"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td>Home University publication repository URL</td>
+                <td>Home University publication repository URL:</td>
                 <td><el-input type="text" v-model="modifiedpart.modified.urlOARepository"></el-input></td>
             </tr>
             <tr class="edit_tr">
                 <!-- <td class="edit_img_center"></td> -->
-                <td>University Logo</td>
+                <td>University Logo*:</td>
                 <td>
                     <!-- <div v-if="haveimg(element)">
                     <img class="change_part_logo" :src="srcImg(element.img)"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('img')"></div>
@@ -62,10 +62,12 @@
                 </td>
             </tr>
         </table>
-        <span slot="footer" class="dialog-footer ">
+        <div class="resource_buttons">
+            <span slot="footer" class="dialog-footer ">
                 <el-button @click="cancel()">cancel</el-button>
-                <el-button type="primary" @click="changepart()">confirm</el-button>
-        </span>
+                <el-button type="primary" @click="changeTopic()">confirm</el-button>
+            </span>
+        </div>
 
         
 

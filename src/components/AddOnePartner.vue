@@ -7,37 +7,37 @@
         
         <table class="edit_table">
             <tr class="edit_tr">
-                <td>Short Name*</td>
-                <td>
+                <td>Short Name*:</td>
+                <td style="width: 30em">
                     <el-input v-model="newPartner.shortName" required></el-input>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>Full Name*</td>
+                <td>Full Name*:</td>
                 <td>
                     <el-input v-model="newPartner.longName" required></el-input>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>University homepage URL*</td>
+                <td>University homepage URL*:</td>
                 <td>
                     <el-input v-model="newPartner.urlhome" required></el-input>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>OAI URL*</td>
+                <td>OAI URL*:</td>
                 <td>
                     <el-input v-model="newPartner.urlOAI" required></el-input>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>University publication repository URL</td>
+                <td>University publication repository URL:</td>
                 <td>
                     <el-input v-model="newPartner.urlOARepository"></el-input>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>University Logo*</td>
+                <td>University Logo*:</td>
                 <td>
                     <el-upload
                     v-model="fileList"
@@ -60,10 +60,12 @@
                 </td>
             </tr>
         </table>
-        <span slot="footer" class="dialog-footer">
-            <router-link :to="{name: 'EditPartner'}"><el-button>cancel</el-button></router-link>
-            <el-button type="primary" @click="addPartner()">confirm</el-button>
-        </span>
+        <div class="resource_buttons">
+            <span slot="footer" class="dialog-footer ">
+                <el-button @click="cancel()">cancel</el-button>
+                <el-button type="primary" @click="changeTopic()">confirm</el-button>
+            </span>
+        </div>
     </div>
 </template>
 <script>
@@ -179,7 +181,12 @@ export default {
             }) 
 
 
-        }
+        },
+        cancel(){
+            this.$router.push({
+                name: "EditPartner"
+            });
+        },
     },
     created(){
         this.partners  = JSON.parse(sessionStorage.getItem("element"))

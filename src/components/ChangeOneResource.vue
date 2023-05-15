@@ -9,14 +9,14 @@
         <table class="edit_table">
 
             <tr class="edit_tr">
-                <td valign="top">Name</td>
+                <td valign="top">Name*:</td>
                 <td>
                     <el-input type="text" v-model="modifiedinfo.modified.name"></el-input>
                     <span  v-if="!this.uniquename" class="alert_name">Resource name exists</span>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td valign="top">University</td>
+                <td valign="top">University*:</td>
                 <td><div v-for="un in filter.university" :key="un.shortName">
                     <input  type="radio" :id="un.shortName" :value="un.shortName" v-model="modifiedinfo.modified.university">
                     <label :for="un.shortName">{{ un.NameAffiche }} - {{un.longName}}</label>
@@ -24,15 +24,15 @@
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td valign="top">Description</td>
+                <td valign="top">Description:</td>
                 <td><el-input type="textarea" rows="3" v-model="modifiedinfo.modified.description"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td valign="top">URL</td>
+                <td valign="top">URL:</td>
                 <td><el-input type="text" v-model="modifiedinfo.modified.url"></el-input></td>
             </tr>
             <tr class="edit_tr">
-                <td valign="top">Type</td>
+                <td valign="top">Type:</td>
                 <td>
                     <div class="resource_card_container">
                         <div v-for="ty in filter.type" :key="ty.Type_normalise" >
@@ -48,7 +48,7 @@
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td valign="top">Access</td>
+                <td valign="top">Access:</td>
                 <td>
                     <div v-for="ac in filter.access" :key="ac.Access">
                     <input  type="radio" :id="ac.Access" :value="ac.Access" v-model="modifiedinfo.modified.access">
@@ -57,7 +57,7 @@
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td valign="top">Audience</td>
+                <td valign="top">Audience:</td>
                 <td>
                     <div class="resource_card_container">
                         <div v-for="au in filter.audience" :key="au" class="resource_card">
@@ -67,14 +67,14 @@
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td valign="top">Contact</td>
+                <td valign="top">Contact:</td>
                 <td>
                     <div v-if="modifiedinfo.modified.contact.length>0">
                         <div v-for="(cont,index) in modifiedinfo.modified.contact" :key="index" class="resource_card" >
                         <table class="ChangeRe_table"> 
                             <tr> 
                                 <td>
-                                    Detail : 
+                                    Detail: 
                                 </td>
                                 <td> 
                                     <el-input type="text" v-model="modifiedinfo.modified.contact[index].detail"></el-input>
@@ -85,7 +85,7 @@
                             </tr>
                             <tr> 
                                 <td>
-                                    Email : 
+                                    Email: 
                                 </td>
                                 <td> 
                                     <el-input type="text" v-model="modifiedinfo.modified.contact[index].email"></el-input>   
@@ -93,7 +93,7 @@
                             </tr>
                             <tr> 
                                 <td>
-                                    URL : 
+                                    URL: 
                                 </td>
                                 <td> 
                                     <el-input type="text" v-model="modifiedinfo.modified.contact[index].url"></el-input>   
@@ -106,7 +106,7 @@
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td valign="top">Language</td>
+                <td valign="top">Language:</td>
                 <td>
                     <div class="resource_card_container">
                         <div v-for="lang in langs" :key="lang" class="resource_card">
