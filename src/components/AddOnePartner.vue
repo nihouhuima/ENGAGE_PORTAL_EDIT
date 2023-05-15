@@ -7,27 +7,27 @@
         
         <table class="edit_table">
             <tr class="edit_tr">
-                <td>Short Name</td>
+                <td>Short Name*</td>
                 <td>
-                    <el-input v-model="newPartner.shortName"></el-input>
+                    <el-input v-model="newPartner.shortName" required></el-input>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>Full Name</td>
+                <td>Full Name*</td>
                 <td>
-                    <el-input v-model="newPartner.longName"></el-input>
+                    <el-input v-model="newPartner.longName" required></el-input>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>University homepage URL</td>
+                <td>University homepage URL*</td>
                 <td>
-                    <el-input v-model="newPartner.urlhome"></el-input>
+                    <el-input v-model="newPartner.urlhome" required></el-input>
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>OAI URL</td>
+                <td>OAI URL*</td>
                 <td>
-                    <el-input v-model="newPartner.urlOAI"></el-input>
+                    <el-input v-model="newPartner.urlOAI" required></el-input>
                 </td>
             </tr>
             <tr class="edit_tr">
@@ -37,7 +37,7 @@
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>University Logo</td>
+                <td>University Logo*</td>
                 <td>
                     <el-upload
                     v-model="fileList"
@@ -108,7 +108,7 @@ export default {
         },
         addPartner(){
             // dialog for confirmation
-            if(this.newPartner.shortName == "" || this.newPartner.longName == "" || this.newPartner.urlOAI == "" || this.newPartner.urlOARepository == "" || this.newPartner.urlhome == "" || this.postData.get("file")==""){
+            if(this.newPartner.shortName == "" || this.newPartner.longName == "" || this.newPartner.urlOAI == "" || this.newPartner.urlhome == "" || this.postData.get("file")==""){
                 this.$notify.error({
                             title: "failure",
                             message: "Please fill in all information! ",

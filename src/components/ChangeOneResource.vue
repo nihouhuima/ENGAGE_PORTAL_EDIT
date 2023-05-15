@@ -225,6 +225,8 @@ export default {
             }
         },
         changeRe(){
+            if(this.modifiedinfo.modified.name!=""&&this.modifiedinfo.modified.university!=""){
+            
             if(this.uniquename==true){
                 this.$confirm(`Do you confirm your modification?`, "confirmation", {
                 iconClass : "el-icon-question",
@@ -247,6 +249,13 @@ export default {
                                 message: "Resource name exists",
                                 duration: 1500
                             })
+            }}
+            else{
+                this.$notify.error({
+                            title: "failure",
+                            message: "Please fill in all necessary block",
+                            duration: 1500
+                        })
             }
             
             

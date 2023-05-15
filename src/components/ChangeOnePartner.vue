@@ -237,7 +237,7 @@ export default {
             });
         },
         changepart(){
-            if(this.element.NameAffiche!=""&&this.element.longName!=""&&this.element.urlOAI!=""&&this.element.urlhome!=""&&this.element.urlOARepository!=""){
+            if(this.element.NameAffiche!=""&&this.element.longName!=""&&this.element.urlOAI!=""&&this.element.urlhome!=""){
                 this.fileParam.set('NameAffiche',this.element.NameAffiche);
                 this.fileParam.set('longName',this.element.longName);
                 this.fileParam.set('urlOAI',this.element.urlOAI);
