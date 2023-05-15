@@ -10,11 +10,11 @@
         <table class="edit_table">
 
             <tr class="edit_tr">
-                <td valign="top">Name</td>
+                <td valign="top">Name*</td>
                 <td><el-input type="text" v-model="modifiedinfo.modified.name" required></el-input> <span  v-if="!this.uniquename" class="alert_name">Resource name exists</span></td>
             </tr>
             <tr class="edit_tr">
-                <td valign="top">University</td>
+                <td valign="top">University*</td>
                 <td>
                     <div v-for="un in filter.university" :key="un.shortName">
                     <input  type="radio" :id="un.shortName" :value="un.shortName" v-model="modifiedinfo.modified.university" required>
@@ -156,6 +156,7 @@ export default {
     },
     methods:{
         addRes(){
+            if(this.modifiedinfo.modified.name!=""&&this.modifiedinfo.modified.university!=""){
             if(this.uniquename==true){
                 this.$confirm(`Do you want to add resource "${this.modifiedinfo.modified.name}"?`, "confirmation", {
                 iconClass : "el-icon-question",
@@ -178,8 +179,14 @@ export default {
                                 message: "Resource name exists",
                                 duration: 1500
                             })
+            }}
+            else{
+                this.$notify.error({
+                            title: "failure",
+                            message: "Please fill in all necessary block",
+                            duration: 1500
+                        })
             }
-            
             
         },
         add(){
