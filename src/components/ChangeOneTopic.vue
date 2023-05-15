@@ -330,7 +330,7 @@ export default {
             }else if(this.nameexist()){
                 this.$notify.error({
                             title: "failure",
-                            message: "Please choose another name for the topic! ",
+                            message: "Short name exists already. Please choose another name for the topic! ",
                             duration: 1500
                         })
             }else if(this.showImg){
