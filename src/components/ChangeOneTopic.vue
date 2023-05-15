@@ -3,7 +3,7 @@
 
         <div class="changet_top">
             <router-link :to="{name: 'EditTopic'}"><img id="edit_return" src="../assets/return.png" alt="Return"/></router-link>
-            <p class="changetopic_title"> Modify information: </p>
+            <p class="changetopic_title"> Modify Topic Information: </p>
         </div>
 
         <div class="edit_content_container"> 
@@ -308,7 +308,11 @@ export default {
                 this.showImg = !this.showImg
             }
             else{
-                this.$message.error("Size limit of your image : 2mb");
+                this.$notify.error({
+                            title: "failure",
+                            message: "Size limit of your image : 2mb",
+                            duration: 1500
+                        })
             }
         },
         cancel(){

@@ -2,7 +2,7 @@
     <div class="edit_change">
         <div class="changet_top">
             <router-link :to="{name: 'EditPartner'}"><img id="edit_return" src="../assets/return.png" alt="Return"/></router-link>
-            <p class="changetopic_title"> update information for {{ element.longName }}</p>
+            <p class="changetopic_title"> Update University's Information</p>
         </div>
         <table class="edit_table">
             <tr class="edit_tr"><td>Modify</td><td>Value</td></tr>
@@ -242,8 +242,17 @@ export default {
                 this.fileParam.set('longName',this.element.longName);
                 this.fileParam.set('urlOAI',this.element.urlOAI);
                 this.fileParam.set('urlhome',this.element.urlhome);
-                this.fileParam.set('urlOARepository',this.element.urlOARepository);  
-                const path = `${this.GLOBAL.BASE_URL}updatePartner`;
+                this.fileParam.set('urlOARepository',this.element.urlOARepository); 
+                
+                this.$confirm(`Do you want to add resource "${this.modifiedinfo.modified.name}"?`, "confirmation", {
+                    iconClass : "el-icon-question",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    showClose: true, // Whether or not to display the top right hand corner close button
+                    type: "warning"
+                })
+                .then(()=>{
+                    const path = `${this.GLOBAL.BASE_URL}updatePartner`;
                 axios({
                     method: "post",
                     url: path,
@@ -270,7 +279,9 @@ export default {
                                 message: e,
                                 duration: 1500
                             })
-                    });
+                    })
+                })
+                ;
             }
             else{
                 this.$notify.error({

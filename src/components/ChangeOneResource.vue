@@ -4,7 +4,7 @@
         <div class="changet_top">
             
             <router-link :to="{name: 'EditResource'}"><img id="edit_return" src="../assets/return.png" alt="Return"/></router-link>
-            <p class="changetopic_title"> Update information: {{ modifiedinfo.modified.name }}</p>
+            <p class="changetopic_title"> Update Resource Information</p>
         </div>
         <table class="edit_table">
 

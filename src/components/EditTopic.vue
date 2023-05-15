@@ -158,9 +158,13 @@ export default {
 
         },
         routerto(){
+            var topic= []
+            for(var i = 0; i<this.topic.length; i++){
+                topic.push(this.topic[i]["topic"])
+            }
             this.$router.push({
                 name:"AddOneTopic",
-                query: this.topic
+                query: topic
                 
             })
         }

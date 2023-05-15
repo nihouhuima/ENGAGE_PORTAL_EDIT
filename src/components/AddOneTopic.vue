@@ -12,11 +12,12 @@
                     <td><p>*Short Name:</p></td><td><el-input v-model="wordlist.shortName" type="text" @change="nameexist(0)" required></el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
                 </tr>
                 <tr> 
-                    <td><p>topic Full Explanation :</p></td><td><el-input v-model="wordlist.FullName" type="text"></el-input></td><td><p class="alert_name"></p></td>
+                    <td><p>Topic Short Explanation :</p></td><td><el-input v-model="wordlist.shortex" type="text"></el-input></td><td><span class="add_topic_notif">(For example: NO POVERTY)</span></td>
                 </tr>
                 <tr> 
-                    <td><p>topic short Explanation :</p></td><td><el-input v-model="wordlist.shortex" type="text"></el-input></td><td></td>
+                    <td><p>Topic Full Explanation :</p></td><td><el-input v-model="wordlist.FullName" type="text"></el-input></td><td><span class="add_topic_notif">(For example: End poverty in all its forms everywhere)</span></td>
                 </tr>
+                
                 <tr> 
                     <td><p>URL :</p></td><td><el-input v-model="wordlist.url" type="text"></el-input></td><td></td>
                 </tr>
@@ -36,7 +37,7 @@
                 >
                     <i class="el-icon-plus"></i>
                 </el-upload>
-                <el-dialog v-model="dialogVisibleB">
+                <el-dialog :visible.sync="dialogVisibleB">
                     <img width="100%" :src="dialogImageUrl" alt="" />
                 </el-dialog></td>
                 </tr>
@@ -134,7 +135,8 @@ export default {
             flag: false,
             topic:[],
             nameoks:"",
-            showImg:true
+            showImg:true,
+            postData:""
 
         }
     },
@@ -164,10 +166,8 @@ export default {
             this.postData.append("file", file["raw"]); // file object 
             this.postData.append("fileName", file["name"]);
             this.postData.append("fileType", file["raw"]["type"])
-            
-            // console.log(fileList)
-            // console.log(file)
-            this.showImg=!this.showImg;
+            this.showImg= !this.showImg;
+            console.log(this.showImg)
         },
        confirm(){
 
@@ -199,30 +199,40 @@ export default {
             }, 100)
        },
        clickConfirm(){
-        if(this.wordlist.shortName!="" && this.wordlist.FullName!=""){
+        if(this.wordlist.shortName!=""){
             var shortfound=false
-            var fullfound=false
             for(var i =0; i<this.topic.length;i++){
-                if( this.topic[i]["topic"]==this.wordlist.shortName){
+                if( this.topic[i]==this.wordlist.shortName){
                     shortfound=true
                 }
-                if( this.topic[i]["topicFullName"]==this.wordlist.FullName){
-                    fullfound=true
-                }
             }
+
             if(shortfound==true){
-                this.$message.error("short name exists") 
-            }else if(fullfound==true){
-                this.$message.error("full name exists")
+                this.$notify.error({
+                                title: "failure",
+                                message: "short name exists",
+                                duration: 1500
+                            })
             }else if(this.postData==""){
-                this.$message.error("Please fill in all necessary information")
+                this.$notify.error({
+                                title: "failure",
+                                message: "Please choose one photo for the topic!",
+                                duration: 1500
+                            })
             }else if(this.wordlist.combined_with==""&&this.wordlist.at_least!=""){
-                this.$message.error("You should have at least one word in \"At least\" if \"Combined with\" is not Empty")
+                this.$notify.error({
+                                title: "failure",
+                                message: "You should have at least one word in \"At least\" if \"Combined with\" is not Empty",
+                                duration: 1500
+                            })
             }else if(this.wordlist.combined_with!=""&&this.wordlist.at_least==""){
-                this.$message.error("You should have at least one word in \"Combined with\" if \"At least\" is not Empty")
+                this.$notify.error({
+                                title: "failure",
+                                message: "You should have at least one word in \"Combined with\" if \"At least\" is not Empty",
+                                duration: 1500
+                            })
             }
             else{
-            
                 this.postData.set("shortName", this.wordlist.shortName)
                 this.postData.set("shortex", this.wordlist.shortex)
                 this.postData.set("FullName", this.wordlist.FullName)
@@ -231,11 +241,11 @@ export default {
                 this.postData.set("single_words", this.wordlist.single_words)
                 this.postData.set("combined_with", this.wordlist.combined_with)
                 this.$confirm( "Do you confirm the submission of information?","Confirmation of addition", {
-                iconClass : "el-icon-question",
-                confirmButtonText: "Yes",
-                cancelButtonText: "No",
-                showClose: true, // Whether or not to display the top right hand corner close button
-                type: "warning"})
+                    iconClass : "el-icon-question",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    showClose: true, // Whether or not to display the top right hand corner close button
+                    type: "warning"})
                 .then(this.confirm())
                 .then(()=>{
                     if (this.flag){
@@ -259,7 +269,11 @@ export default {
                         this.$router.push({
                         name:"Edit"});
                     }else{
-                        this.$message.error("Failed, please try it later");
+                        this.$notify.error({
+                                title: "failure",
+                                message: "Failed, please try it later.",
+                                duration: 1500
+                            })
                         this.$router.push({
                             name: "Edit"
                         });
@@ -275,7 +289,11 @@ export default {
                 }
             
         }else{
-            alert("Please complete your message! Fields marked with an asterisk are required.")
+            this.$notify.error({
+                                title: "failure",
+                                message: "Please fill in the Short Name of topic.",
+                                duration: 1500
+                            })
         }
         
        },
@@ -284,30 +302,24 @@ export default {
             if(x==0){
                 
                 for(var i=0; i<this.topic.length; i++){
-                    if( this.topic[i]["topic"]==this.wordlist.shortName){
+                    if( this.topic[i]==this.wordlist.shortName){
                     this.nameoks = "The topic name already exists"
                     find = true
                     }
                 }
                 if(find==false){
                             this.nameoks = ""}
-            }else{
-                for(var j=0; j<this.topic.length; j++){
-                    if(this.topic[j]["topicFullName"]==this.wordlist.FullName){
-                    this.nameokf = "The topic name already exists"
-                    find = true
-                }}
-                if(find==false){
-                            this.nameokf = ""}
             }
 
        }
     },
     created(){
         // this.getRouterData();
-        for(var m in this.$route.query){
-            this.topic.push(this.$route.query[m])
-        }
+        // for(var m in this.$route.query){
+        //     this.topic.push(this.$route.query[m])
+        // }
+        this.topic = this.$route.query
+        this.postData =""
     }, 
     computed:{
         
