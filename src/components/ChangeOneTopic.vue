@@ -431,13 +431,16 @@ export default {
             })
         },
         constrainteTerms(){
-            for(var i =0 ; i<this.element.terms.length; i++){
+            if(this.element.terms!=[]){
+                for(var i =0 ; i<this.element.terms.length; i++){
                 if(this.element.terms[i]["atLeast"].length == 0 && this.element.terms[i]["combinedWith"].length != 0){
                     return 1
                 }else if (this.element.terms[i]["atLeast"].length != 0 && this.element.terms[i]["combinedWith"].length == 0){
                     return 2
                 }
             }
+            }
+            
             return 3
             
         }
@@ -445,7 +448,6 @@ export default {
     },
     created(){
         this.getdata(this.$route.query)
-       
     },
     
 }

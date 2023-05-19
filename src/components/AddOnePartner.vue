@@ -54,7 +54,7 @@
                 >
                     <i class="el-icon-plus"></i>
                 </el-upload>
-                <el-dialog v-model="dialogVisibleB">
+                <el-dialog :visible.sync="dialogVisibleB">
                     <img width="100%" :src="dialogImageUrl" alt="" />
                 </el-dialog>
                 </td>
@@ -63,7 +63,7 @@
         <div class="resource_buttons">
             <span slot="footer" class="dialog-footer ">
                 <el-button @click="cancel()">cancel</el-button>
-                <el-button type="primary" @click="changeTopic()">confirm</el-button>
+                <el-button type="primary" @click="addPartner()">confirm</el-button>
             </span>
         </div>
     </div>
