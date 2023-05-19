@@ -65,7 +65,7 @@
         <div class="resource_buttons">
             <span slot="footer" class="dialog-footer ">
                 <el-button @click="cancel()">cancel</el-button>
-                <el-button type="primary" @click="changeTopic()">confirm</el-button>
+                <el-button type="primary" @click="modifyWord()">confirm</el-button>
             </span>
         </div>
 
