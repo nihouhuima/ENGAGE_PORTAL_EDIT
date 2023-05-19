@@ -65,7 +65,7 @@
         <div class="resource_buttons">
             <span slot="footer" class="dialog-footer ">
                 <el-button @click="cancel()">cancel</el-button>
-                <el-button type="primary" @click="modifyWord()">confirm</el-button>
+                <el-button type="primary" @click="changepart()">confirm</el-button>
             </span>
         </div>
 
@@ -116,18 +116,18 @@ export default {
         }
     },
     methods:{
-        choosedata(key){
-            if(key!='img'){
-                // console.log(key)
-                // console.log(this.element[key])
-                this.target = key
-                this.dialogVisible = true
-                this.modifiedinfo.content=""
-            }else{
-                this.dialogVisibleImg = true
-            }
+        // choosedata(key){
+        //     if(key!='img'){
+        //         // console.log(key)
+        //         // console.log(this.element[key])
+        //         this.target = key
+        //         this.dialogVisible = true
+        //         this.modifiedinfo.content=""
+        //     }else{
+        //         this.dialogVisibleImg = true
+        //     }
             
-        },
+        // },
         showKey(){
             if (this.target == "NameAffiche"){
                 return "Short Name"
@@ -246,7 +246,7 @@ export default {
                 this.fileParam.set('urlhome',this.element.urlhome);
                 this.fileParam.set('urlOARepository',this.element.urlOARepository); 
                 
-                this.$confirm(`Do you want to add resource "${this.modifiedinfo.modified.name}"?`, "confirmation", {
+                this.$confirm(`Do you want to add resource "${this.element.NameAffiche}"?`, "confirmation", {
                     iconClass : "el-icon-question",
                     confirmButtonText: "Yes",
                     cancelButtonText: "No",
