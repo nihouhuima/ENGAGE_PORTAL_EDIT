@@ -218,9 +218,9 @@ export default {
             const path = `${this.GLOBAL.BASE_URL}resources_filter`;
             axios.get(path)
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.filter = res.data;
-                console.log(this.filter)
+                // console.log(this.filter)
             })
             .catch((error) => {
             // eslint-disable-next-line
@@ -231,7 +231,7 @@ export default {
                 const path = `${this.GLOBAL.BASE_URL}resources_name/${this.modifiedinfo.modified.name}`;
                 axios.get(path)
                 .then((res) => {
-                    console.log(res.data.has);
+                    // console.log(res.data.has);
                     if(res.data.has=="true" || res.data.has==true){
                         this.uniquename=false;
                     }else{
