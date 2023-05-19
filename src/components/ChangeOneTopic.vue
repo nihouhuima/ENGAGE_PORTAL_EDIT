@@ -416,6 +416,7 @@ export default {
                     // console.log(this.topic[i]['type']);
                     if (res.data[i]['topic']==topic.topic){
                         this.element = res.data[i]
+                        console.log(this.element)
                     }else{
                         this.topic.push(res.data[i]['topic'])
                     }
@@ -431,15 +432,17 @@ export default {
             })
         },
         constrainteTerms(){
-            if(this.element.terms!=[]){
-                for(var i =0 ; i<this.element.terms.length; i++){
-                if(this.element.terms[i]["atLeast"].length == 0 && this.element.terms[i]["combinedWith"].length != 0){
-                    return 1
-                }else if (this.element.terms[i]["atLeast"].length != 0 && this.element.terms[i]["combinedWith"].length == 0){
-                    return 2
+            for(var i =0 ; i<this.element.terms.length; i++){
+                if(this.element.terms[i].length >1){
+                    if(this.element.terms[i]["atLeast"].length == 0 && this.element.terms[i]["combinedWith"].length != 0){
+                        return 1
+                    }else if (this.element.terms[i]["atLeast"].length != 0 && this.element.terms[i]["combinedWith"].length == 0){
+                        return 2
+                    }
                 }
+                
             }
-            }
+            
             
             return 3
             
