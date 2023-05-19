@@ -9,7 +9,7 @@
         </div>
         <table class="edit_table">
             <tr>
-                <td>Modify</td><td>Delete</td><td class="edit_short_name">Short Name</td><td>Full Name</td>
+                <td>Modify</td><td>Delete</td><td class="edit_short_name">Short Name</td><td>Full Explanation</td>
             </tr>
 
                 
@@ -31,7 +31,7 @@
         
         <table class="edit_table">
             <tr >
-                <td>Modify</td><td class="edit_short_name">Short Name</td><td>Full Name</td>
+                <td>Modify</td><td class="edit_short_name">Short Name</td><td>Full Explanation</td>
             </tr>
                         
 

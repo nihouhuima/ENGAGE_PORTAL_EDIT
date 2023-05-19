@@ -5,7 +5,7 @@
             <p class="changetopic_title"> Update University's Information</p>
         </div>
         <table class="edit_table">
-            <tr class="edit_tr"><td>Modify</td><td>Value</td></tr>
+            <!-- <tr class="edit_tr"><td>Modify</td><td>Value</td></tr> -->
             <tr class="edit_tr">
                 <!-- <td class="edit_img_center"><img src="../assets/crayon.png" alt="edit" class="edit_img" @click="choosedata('NameAffiche')"></td> -->
                 <td>Short Name*:</td>
