@@ -9,7 +9,8 @@
             <tr class="edit_tr">
                 <td>Short Name*:</td>
                 <td style="width: 30em">
-                    <el-input v-model="newPartner.shortName" required></el-input>
+                    <el-input v-model="newPartner.shortName" @change="nameexist()" required></el-input>
+                    <span class="alert_name">{{ nameoks }}</span>
                 </td>
             </tr>
             <tr class="edit_tr">
@@ -25,9 +26,9 @@
                 </td>
             </tr>
             <tr class="edit_tr">
-                <td>OAI URL*:</td>
+                <td>OAI URL:</td>
                 <td>
-                    <el-input v-model="newPartner.urlOAI" required></el-input>
+                    <el-input v-model="newPartner.urlOAI"></el-input>
                 </td>
             </tr>
             <tr class="edit_tr">
@@ -87,7 +88,8 @@ export default {
                 urlOARepository:"",
                 urlhome:""
             },
-            postData:""
+            postData:"",
+            nameoks:"",
         }
     },
     methods:{
@@ -110,10 +112,10 @@ export default {
         },
         addPartner(){
             // dialog for confirmation
-            if(this.newPartner.shortName == "" || this.newPartner.longName == "" || this.newPartner.urlOAI == "" || this.newPartner.urlhome == "" || this.postData.get("file")==""){
+            if(this.newPartner.shortName == "" || this.newPartner.longName == "" || this.newPartner.urlhome == "" || this.postData.get("file")==""){
                 this.$notify.error({
                             title: "failure",
-                            message: "Please fill in all information! ",
+                            message: "Please fill in all mandatory information! ",
                             duration: 1500
                         })
             }else if(this.shorts.indexOf(this.newPartner.shortName)!=-1){
@@ -187,11 +189,18 @@ export default {
                 name: "EditPartner"
             });
         },
+        nameexist(){
+            this.nameoks = ""
+            if(this.shorts.indexOf(this.newPartner.shortName)!=-1){
+                this.nameoks = "The partner name already exists"
+            }           
+        }
     },
     created(){
         this.partners  = JSON.parse(sessionStorage.getItem("element"))
         this.partners.forEach(element => {
             this.shorts.push(element['shortName'])
+            this.shorts.push(element["NameAffiche"])
         });
         this.postData = new window.FormData(); //create object -- form
         this.postData.append("file", ""); // file object 

@@ -9,7 +9,7 @@
             </div>
             <table id="edit_add_topic_table"> 
                 <tr class="edit_tr"> 
-                    <td valign="top" style="width: 11em"><p>Short Name*:</p></td><td style="width: 30em"><el-input v-model="wordlist.shortName" type="text" @change="nameexist(0)" required></el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
+                    <td valign="top" style="width: 11em"><p>Short Name*:</p></td><td style="width: 30em"><el-input v-model="wordlist.shortName" type="text" @change="nameexist()" required></el-input></td><td><p class="alert_name">{{ nameoks }}</p></td>
                 </tr>
                 <tr> 
                     <td valign="top"><p>Topic Short Explanation:</p></td><td><el-input v-model="wordlist.shortex" type="text"></el-input></td><td><span class="add_topic_notif">(For example: NO POVERTY)</span></td>
@@ -297,20 +297,13 @@ export default {
         }
         
        },
-       nameexist(x){
-            var find=false
-            if(x==0){
-                
-                for(var i=0; i<this.topic.length; i++){
-                    if( this.topic[i]==this.wordlist.shortName){
-                    this.nameoks = "The topic name already exists"
-                    find = true
-                    }
+       nameexist(){
+            this.nameoks = ""
+            for(var i=0; i<this.topic.length; i++){
+                if( this.topic[i]==this.wordlist.shortName){
+                this.nameoks = "The topic name already exists"
                 }
-                if(find==false){
-                            this.nameoks = ""}
             }
-
        }
     },
     created(){
