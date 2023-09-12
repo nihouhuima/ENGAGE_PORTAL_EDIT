@@ -59,8 +59,10 @@ export default {
                 type: "warning"
                 })
                 .then(()=>{ 
-                    const path = `${this.GLOBAL.BASE_URL}modifyresources`;
-                    axios.post(path, {'oldname':name}, {headers:{"Content-Type" : "application/json"}})
+                    //const path = `${this.GLOBAL.BASE_URL}modifyresources`;
+                    //axios.post(path, {'oldname':name}, {headers:{"Content-Type" : "application/json"}})
+                    const path = `${this.GLOBAL.BASE_URL}/mresources/${name}`
+                    axios.delete(path)
                     .then((res) => {
                         // console.log(res.data);
                         if(res.data.delete){

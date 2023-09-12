@@ -416,7 +416,7 @@ export default {
                     // console.log(this.topic[i]['type']);
                     if (res.data[i]['topic']==topic.topic){
                         this.element = res.data[i]
-                        // console.log(this.element)
+                        //console.log(this.element)
                     }else{
                         this.topic.push(res.data[i]['topic'])
                     }

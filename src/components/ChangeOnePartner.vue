@@ -246,7 +246,7 @@ export default {
                 this.fileParam.set('urlhome',this.element.urlhome);
                 this.fileParam.set('urlOARepository',this.element.urlOARepository); 
                 
-                this.$confirm(`Do you want to add resource "${this.element.NameAffiche}"?`, "confirmation", {
+                this.$confirm(`Do you want to update information "${this.element.NameAffiche}"?`, "confirmation", {
                     iconClass : "el-icon-question",
                     confirmButtonText: "Yes",
                     cancelButtonText: "No",

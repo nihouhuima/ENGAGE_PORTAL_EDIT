@@ -262,8 +262,9 @@ export default {
             
         },
         change(){
-            const path = `${this.GLOBAL.BASE_URL}modifyresources`;
-            axios.post(path, this.modifiedinfo, {headers:{"Content-Type" : "application/json"}})
+            //const path = `${this.GLOBAL.BASE_URL}modifyresources`;
+            const path = `${this.GLOBAL.BASE_URL}/mresources/${this.modifiedinfo.oldname}`;
+            axios.put(path, this.modifiedinfo.modified, {headers:{"Content-Type" : "application/json"}})
             .then((res) => {
                 // console.log(res.data);
                 if(res.data.modify=="true" || res.data.modify==true){

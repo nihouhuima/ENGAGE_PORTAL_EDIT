@@ -190,7 +190,8 @@ export default {
             
         },
         add(){
-            const path = `${this.GLOBAL.BASE_URL}modifyresources`;
+            //const path = `${this.GLOBAL.BASE_URL}modifyresources`;
+            const path = `${this.GLOBAL.BASE_URL}/mresources/${this.modifiedinfo.name}`;
             axios.post(path, this.modifiedinfo, {headers:{"Content-Type" : "application/json"}})
             .then((res) => {
                 // console.log(res.data);
